@@ -7,9 +7,26 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['var(--font-poppins)']
+      },
       backgroundImage: {
-        "hero-image": "url('/assets/images/hero2.jpg')",
-      }
+        "hero-image": "url('/assets/images/IMG_5340-1.jpg')",
+      },
+        keyframes:{
+          smallFont:{
+            "0%": {fontSize: "8rem"},         
+            "100%": {fontSize: "3rem"},         
+          },
+          bigFont:{
+            "0%": {fontSize: "3rem"},         
+            "100%": {fontSize: "8rem"},         
+          },
+        },
+        animation:{
+          smallFont: "smallFont 500ms cubic-bezier(.23,.78,.63,.99) forwards",
+          bigFont: "bigFont 500ms cubic-bezier(.23,.78,.63,.99) forwards",
+        },
     },
   },
   plugins: [],
