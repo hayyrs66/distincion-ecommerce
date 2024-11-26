@@ -1,5 +1,6 @@
 import localFont from "next/font/local";
 import BagLogo from "./BagLogo";
+import Link from "next/link";
 
 const things = localFont({
   src: [
@@ -14,13 +15,13 @@ const Header = () => {
   return (
     <header className="w-full fixed top-0 left-0 py-2 z-10 items-center px-8 bg-white drop-shadow-sm flex justify-between transition-all">
       <div className="flex flex-col justify-center">
-        <a
+        <Link
           href="/"
           title-header="Distinción"
           className={`${things.className} text-4xl -mx-1 tracking-tighter font-medium text-black`}
         >
           Distinción
-        </a>
+        </Link>
       </div>
       <div>
         <a
