@@ -1,15 +1,12 @@
-import localFont from "next/font/local";
 import "./globals.css";
-import Header from "@components/Header";
+import Header from "./components/Header";
+import { Poppins } from 'next/font/google'
 
-const poppins = localFont({
-  src: [
-    {
-      path: "./fonts/Poppins/Poppins-Light.ttf",
-      weight: "400",
-    },
-  ],
-  variable: "--font-poppins",
+const poppins = Poppins({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-poppins',
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900']
 });
 
 export const metadata = {
