@@ -11,7 +11,7 @@ module.exports = {
         sans: ['var(--font-poppins)']
       },
       backgroundImage: {
-        "hero-image": "url('/assets/images/IMG_5340-1.jpg')",
+        "hero-image": "url('/assets/images/IMG_5368-2-Recovered-5.jpg')",
       },
         keyframes:{
           smallFont:{
@@ -24,9 +24,12 @@ module.exports = {
           },
         },
         animation:{
-          smallFont: "smallFont 500ms cubic-bezier(.23,.78,.63,.99) forwards",
-          bigFont: "bigFont 500ms cubic-bezier(.23,.78,.63,.99) forwards",
+          smallFont: "smallFont 400ms cubic-bezier(.23,.78,.63,.99) forwards",
+          bigFont: "bigFont 400ms cubic-bezier(.23,.78,.63,.99) forwards",
         },
+        gridTemplateColumns: {
+          "clothes-section": "1fr 0.5fr"
+        }
     },
   },
   plugins: [],
