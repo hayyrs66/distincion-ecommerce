@@ -12,6 +12,7 @@ module.exports = {
       },
       backgroundImage: {
         "hero-image": "url('/assets/images/IMG_5368-2-Recovered-5.jpg')",
+        "about-image": "url('/assets/images/santi.jpg')",
       },
         keyframes:{
           smallFont:{
