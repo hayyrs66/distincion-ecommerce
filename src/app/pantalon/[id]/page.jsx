@@ -2,10 +2,12 @@
 import { useEffect, useState, use } from "react";
 import { pantalones } from "../../constants";
 import { useCart } from "../../context/CartProvider";
+import { useToast } from "../../../hooks/use-toast";
 
 export default function Page({ params: paramsPromise }) {
   const params = use(paramsPromise);
   const { addToCart } = useCart();
+  const { toast } = useToast();
 
   const [selectedPantalon, setSelectedPantalon] = useState(null);
   const [selectedColor, setSelectedColor] = useState("");
@@ -38,7 +40,10 @@ export default function Page({ params: paramsPromise }) {
 
   const handleAddToCart = () => {
     if (!selectedSize) {
-      alert("Selecciona una talla antes de añadir al carrito.");
+      toast({
+        title: "Seleccione una talla",
+        description: "Debe seleccionar una talla antes de agregar al carrito",
+      });
       return;
     }
 
@@ -52,7 +57,10 @@ export default function Page({ params: paramsPromise }) {
       image: selectedPantalon.imagenes[0][selectedColor][0],
     });
 
-    alert("Producto añadido al carrito");
+    toast({
+      title: "Producto añadido",
+      description: "El producto fue añadido a la canasta",
+    });
   };
 
   if (!selectedPantalon) {
@@ -94,7 +102,8 @@ export default function Page({ params: paramsPromise }) {
           <div className="mt-5">
             <fieldset className="flex gap-2">
               <legend className="mb-2">Selecciona la talla</legend>
-              {["XS", "S", "M", "L", "XL"].map((size) => (
+{/* 28, 30, 32, 34, 36 */}
+              {["28", "30", "32", "34", "36"].map((size) => (
                 <label key={size}>
                   <input
                     className="appearance-none relative bg-white w-9 h-9 rounded-full border border-gray-600 checked:text-white checked:bg-black cursor-pointer
@@ -142,11 +151,12 @@ export default function Page({ params: paramsPromise }) {
           {/* Add to Cart */}
           <div>
             <button
-              onClick={handleAddToCart}
+              onClick={() => {
+                handleAddToCart();
+              }}
               className="bg-black rounded-md mb-4 text-white w-full py-3 mt-8 flex justify-center items-center gap-2"
             >
               Añadir a la canasta
-              <img src="assets/icons/cart.svg" alt="" />
             </button>
           </div>
         </div>
