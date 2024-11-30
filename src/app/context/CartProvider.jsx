@@ -22,7 +22,7 @@ export const CartProvider = ({ children }) => {
           item.id === product.id &&
           item.size === product.size &&
           item.color === product.color
-            ? { ...item, quantity: item.quantity + 1 }
+            ? { ...item, quantity: Math.max(item.quantity + 1, 1) }
             : item
         );
       } else {
@@ -32,6 +32,10 @@ export const CartProvider = ({ children }) => {
   };
 
   const updateQuantity = (id, size, color, quantity) => {
+    if (quantity <= 0) {
+      return;
+    }
+
     setCartItems((prevItems) =>
       prevItems.map((item) =>
         item.id === id && item.size === size && item.color === color
