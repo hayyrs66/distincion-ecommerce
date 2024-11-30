@@ -1,13 +1,15 @@
 "use client";
-import { useEffect, useState } from "react";
-import { use } from "react";
+import { useEffect, useState, use } from "react";
 import { pantalones } from "../../constants";
+import { useCart } from "../../context/CartProvider";
 
 export default function Page({ params: paramsPromise }) {
   const params = use(paramsPromise);
+  const { addToCart } = useCart();
 
   const [selectedPantalon, setSelectedPantalon] = useState(null);
   const [selectedColor, setSelectedColor] = useState("");
+  const [selectedSize, setSelectedSize] = useState("");
 
   useEffect(() => {
     const pantalon = pantalones.find((p) => p.tipo === params.id);
@@ -18,10 +20,6 @@ export default function Page({ params: paramsPromise }) {
       setSelectedColor(defaultColor);
     }
   }, [params.id]);
-
-  if (!selectedPantalon) {
-    return <p>Cargando...</p>;
-  }
 
   function getColorHex(color) {
     const colorMap = {
@@ -34,8 +32,32 @@ export default function Page({ params: paramsPromise }) {
       negro: "#000",
       verde: "#769e46",
     };
+  
+    return colorMap[color] || "#fff";
+  }
+  
 
-    return colorMap[color] || "#fff"; // Default to white if color not found
+  const handleAddToCart = () => {
+    if (!selectedSize) {
+      alert("Selecciona una talla antes de añadir al carrito.");
+      return;
+    }
+
+    addToCart({
+      id: selectedPantalon.id,
+      name: selectedPantalon.nombre,
+      price: selectedPantalon.precio,
+      size: selectedSize,
+      color: selectedColor,
+      colorHex: getColorHex(selectedColor),
+      image: selectedPantalon.imagenes[0][selectedColor][0],
+    });
+
+    alert("Producto añadido al carrito");
+  };
+
+  if (!selectedPantalon) {
+    return <p>Cargando...</p>;
   }
 
   return (
@@ -51,7 +73,7 @@ export default function Page({ params: paramsPromise }) {
         <figure>
           <img
             src={`/${selectedPantalon.imagenes[0][selectedColor][1]}`}
-            alt={`${selectedPantalon.nombre} ${selectedColor} atras`}
+            alt={`${selectedPantalon.nombre} ${selectedColor} atrás`}
           />
         </figure>
       </div>
@@ -81,6 +103,7 @@ export default function Page({ params: paramsPromise }) {
                     type="radio"
                     name="size"
                     value={size}
+                    onChange={() => setSelectedSize(size)}
                   />
                 </label>
               ))}
@@ -108,7 +131,7 @@ export default function Page({ params: paramsPromise }) {
                     }`}
                   >
                     <div
-                      style={{ backgroundColor: getColorHex(color) }} // Dynamically apply color
+                      style={{ backgroundColor: getColorHex(color) }}
                       className="w-4 h-4 rounded-full"
                     />
                   </div>
@@ -119,7 +142,10 @@ export default function Page({ params: paramsPromise }) {
 
           {/* Add to Cart */}
           <div>
-            <button className="bg-black rounded-md mb-4 text-white w-full py-3 mt-8 flex justify-center items-center gap-2">
+            <button
+              onClick={handleAddToCart}
+              className="bg-black rounded-md mb-4 text-white w-full py-3 mt-8 flex justify-center items-center gap-2"
+            >
               Añadir a la canasta
               <img src="assets/icons/cart.svg" alt="" />
             </button>
