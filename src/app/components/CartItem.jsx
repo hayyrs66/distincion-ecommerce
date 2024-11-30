@@ -4,10 +4,6 @@ import Trash from "./icons/Trash";
 import Up from "./icons/Up";
 
 const CartItem = ({ item, onIncrease, onDecrease, onRemove }) => {
-  useEffect(() => {
-    console.log("CartItem render, item:", item);
-  }, []);
-
   return (
     <article className="border-b border-b-black/10 p-4 rounded-md flex justify-between items-center">
       {/* Detalles del Producto */}
