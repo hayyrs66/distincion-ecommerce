@@ -7,7 +7,7 @@ const Marquee = () => {
   useEffect(() => {
     const marquee = new InfiniteMarquee({
       element: ".marquee-container",
-      speed: 50000,
+      speed: 19000,
       smoothEdges: false,
       direction: "left",
       duplicateCount: 2,
