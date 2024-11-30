@@ -74,7 +74,7 @@ export default function Page() {
       <div className="w-full grid grid-cols-4 gap-2 px-2 mt-6">
         {pantalonesFiltrados.length > 0 ? (
           pantalonesFiltrados.map((pantalon) => (
-            <a key={pantalon.id} href={`pantalon/${pantalon.tipo}`}>
+            <a key={pantalon.id} href={`/pantalon/${pantalon.tipo}`}>
               <article>
                 <div className="w-80">
                   <img
