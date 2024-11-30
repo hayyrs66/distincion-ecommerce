@@ -1,10 +1,16 @@
-'use client'
+"use client";
 import { useState } from "react";
 import Link from "next/link";
 import Cart from "./Cart";
+import { useCart } from "../context/CartProvider";
 
 const Header = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const { cartItems } = useCart(); // Get cartItems from the context
+
+  // Calculate total items in the cart
+  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   const toggleCart = () => {
     setIsCartOpen(!isCartOpen);
@@ -22,11 +28,11 @@ const Header = () => {
             Pantalones
           </Link>
           <Link
-            href="colecciones"
+            href="/colecciones"
             className="relative font-normal text-base text-black leading-[1rem]"
           >
             Playeras
-            <span className="absolute bottom-5 right-0 w-24 h-4  text-orange-500 font-medium rounded-full text-xs flex justify-center items-center leading-[1rem] tracking-tighter px-1 py-1 translate-x-[50%] translate-y-[40%] transition-all">
+            <span className="absolute bottom-5 right-0 w-24 h-4 text-orange-500 font-medium rounded-full text-xs flex justify-center items-center leading-[1rem] tracking-tighter px-1 py-1 translate-x-[50%] translate-y-[40%] transition-all">
               Próximamente
             </span>
           </Link>
@@ -36,7 +42,7 @@ const Header = () => {
           <Link
             href="/"
             title-header="Distinción"
-            className={`text-4xl tracking-tighter font-normal text-black`}
+            className="text-4xl tracking-tighter font-normal text-black"
           >
             DISTINCIÓN
           </Link>
@@ -66,7 +72,7 @@ const Header = () => {
             >
               Canasta
               <span className="absolute bottom-4 mx-2 right-0 w-4 h-4 bg-black/50 text-white rounded-full text-xs flex justify-center items-center leading-[1rem] font-poppins font-normal tracking-tighter px-1 py-1 mt-[-0.5rem] mr-[-0.5rem] z-10 drop-shadow-sm transform translate-x-1/2 translate-y-1/2 transition-all">
-                0
+                {totalItems}
               </span>
             </button>
           </div>
