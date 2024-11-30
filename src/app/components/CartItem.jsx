@@ -1,8 +1,73 @@
+import { useEffect } from "react";
+import Down from "./icons/Down";
+import Trash from "./icons/Trash";
+import Up from "./icons/Up";
 
-const CartItem = () => {
+const CartItem = ({ item, onIncrease, onDecrease, onRemove }) => {
+
+  useEffect(() => {
+    console.log("CartItem render, item:", item);
+  }, []);
+  
   return (
-    <div>CartItem</div>
-  )
-}
+    <article className="border-b p-4 rounded-md flex justify-between items-center">
+      {/* Detalles del Producto */}
+      <div className="flex gap-4 items-center">
+        <div>
+          <img
+            width={70}
+            height={70}
+            src={`/${item.image}`}
+            alt={`${item.name} - ${item.color}`}
+            className="object-cover rounded-md"
+          />
+        </div>
+        <div>
+          <h5 className="text-base font-semibold">{item.name}</h5>
+          <p className="text-sm text-gray-500">Q{item.price.toFixed(2)}</p>
+          <div className="flex items-center gap-2 mt-1">
+            <p className="text-sm">{item.size} - {item.color}</p>
+            <div
+              className={`w-4 h-4 rounded-full border border-gray-300 flex items-center justify-center`}
+            >
+              <div
+                style={{ backgroundColor: item.colorHex }}
+                className="w-3 h-3 rounded-full"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
 
-export default CartItem
+      {/* Controles de Cantidad y Eliminar */}
+      <div className="flex items-center gap-2">
+        <div className="flex items-center">
+          <button
+            onClick={onDecrease}
+            className="bg-gray-200 rounded-md text-gray-700"
+            aria-label="Disminuir cantidad"
+          >
+            <Down />
+          </button>
+          <span className="px-4 text-sm">{item.quantity}</span>
+          <button
+            onClick={onIncrease}
+            className="bg-gray-200 rounded-md text-gray-700"
+            aria-label="Aumentar cantidad"
+          >
+            <Up />
+          </button>
+        </div>
+        <button
+          onClick={onRemove}
+          className="text-red-500 hover:text-red-700"
+          aria-label="Eliminar artículo"
+        >
+          <Trash />
+        </button>
+      </div>
+    </article>
+  );
+};
+
+export default CartItem;
