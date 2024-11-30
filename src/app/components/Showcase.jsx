@@ -3,8 +3,8 @@ const Showcase = () => {
     <div className="w-full grid grid-cols-4 gap-2 p-2">
       <div className="w-full relative cursor-pointer">
         <img
-          src="assets/images/cargo.jpg"
-          className="filter brightness-[.7] hover:brightness-[0.6] transition-all"
+          src="assets/fotos/cargo/CARGO_VERDE_FRENTE.avif"
+          className="object-cover w-full h-full filter brightness-[.7] hover:brightness-[0.6] transition-all"
           alt=""
         />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/">
@@ -15,8 +15,8 @@ const Showcase = () => {
       </div>
       <div className="w-full relative cursor-pointer">
         <img
-          src="assets/images/recto.jpg"
-          className="filter brightness-[.7] hover:brightness-[0.6] transition-all"
+          src="assets/fotos/semi/SEMI_GRIS_CLARO_FRENTE.avif"
+          className="object-cover w-full h-full filter brightness-[.7] hover:brightness-[0.6] transition-all"
           alt=""
         />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/">
@@ -25,8 +25,8 @@ const Showcase = () => {
       </div>
       <div className="w-full relative cursor-pointer">
         <img
-          src="assets/images/skinny.jpg"
-          className="filter brightness-[.7] hover:brightness-[0.6] transition-all"
+          src="assets/fotos/ajustado/AJUSTADO_KAKI_FRENTE.avif"
+          className="object-cover w-full h-full filter brightness-[.7] hover:brightness-[0.6] transition-all"
           alt=""
         />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/">
@@ -35,8 +35,8 @@ const Showcase = () => {
       </div>
       <div className="w-full relative cursor-pointer">
         <img
-          src="assets/images/jogger.jpg"
-          className="filter brightness-[.7] hover:brightness-[0.6] transition-all"
+          src="assets/fotos/jogger/JOGGER_AZUL_FRENTE.avif"
+          className="object-cover w-full h-full filter brightness-[.7] hover:brightness-[0.6] transition-all"
           alt=""
         />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/">
