@@ -68,7 +68,11 @@ const Header = () => {
               className="flex gap-3 items-center font-normal text-base text-black leading-[1rem]"
             >
               Canasta
-              <span className="absolute bottom-4 mx-2 right-0 w-4 h-4 bg-black/50 text-white rounded-full text-xs flex justify-center items-center leading-[1rem] font-poppins font-normal tracking-tighter px-1 py-1 mt-[-0.5rem] mr-[-0.5rem] z-10 drop-shadow-sm transform translate-x-1/2 translate-y-1/2 transition-all">
+              <span
+                className={`absolute bottom-4 mx-2 right-0 w-4 h-4 ${
+                  totalItems > 0 ? "bg-red-500" : "bg-black/50"
+                } text-white rounded-full text-xs flex justify-center items-center leading-[1rem] font-poppins font-normal tracking-tighter px-1 py-1 mt-[-0.5rem] mr-[-0.5rem] z-10 drop-shadow-sm transform translate-x-1/2 translate-y-1/2 transition-all`}
+              >
                 {totalItems}
               </span>
             </button>
