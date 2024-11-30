@@ -6,10 +6,7 @@ import { useCart } from "../context/CartProvider";
 
 const Header = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
-
-  const { cartItems } = useCart(); // Get cartItems from the context
-
-  // Calculate total items in the cart
+  const { cartItems } = useCart();
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   const toggleCart = () => {
