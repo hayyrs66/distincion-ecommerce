@@ -3,19 +3,17 @@ import { useEffect } from "react";
 import { useCart } from "../context/CartProvider";
 import CartItem from "./CartItem";
 import Close from "./icons/Close";
+import BagLogo from "./icons/BagLogo";
 
 const Cart = ({ openCart, closeCart }) => {
   const { cartItems, updateQuantity, removeFromCart } = useCart();
-  
+
   const subtotal = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
 
-  const totalItems = cartItems.reduce(
-    (sum, item) => sum + item.quantity,
-    0
-  );
+  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   const shippingCost = cartItems.length > 0 ? 40 : 0;
   const total = subtotal + shippingCost;
@@ -28,8 +26,17 @@ const Cart = ({ openCart, closeCart }) => {
     >
       {/* Header */}
       <div className="w-full flex pt-6 px-6 justify-between items-center">
-        <h4 className="text-xl font-light tracking-tight">Canasta de Compra</h4>
-        <button onClick={closeCart} aria-label="Cerrar carrito">
+        <div className="flex gap-2 items-center">
+          <h4 className="text-xl font-normal tracking-tight">
+            Canasta de Compra
+          </h4>
+          <BagLogo fillColor="fill-black" />
+        </div>
+        <button
+          onClick={closeCart}
+          aria-label="Cerrar carrito"
+          className="bg-gray-200 px-2 py-1 rounded-md hover:bg-gray-300 transition-colors"
+        >
           <Close />
         </button>
       </div>
@@ -42,7 +49,7 @@ const Cart = ({ openCart, closeCart }) => {
       </div>
 
       {/* Cart Items */}
-      <div className="flex flex-col flex-1 border-b mt-6 overflow-auto">
+      <div className="flex flex-col flex-1 border-b border-b-black/20 mt-2 overflow-auto">
         {cartItems.map((item) => (
           <CartItem
             key={`${item.id}-${item.size}-${item.color}`}
@@ -66,7 +73,9 @@ const Cart = ({ openCart, closeCart }) => {
         </div>
         <div className="flex justify-between items-center w-full mb-2">
           <p className="font-light">Costo envío</p>
-          <p className="font-semibold text-black/80">Q{shippingCost.toFixed(2)}</p>
+          <p className="font-semibold text-black/80">
+            Q{shippingCost.toFixed(2)}
+          </p>
         </div>
         <div className="flex justify-between items-center w-full mb-4">
           <p className="font-light">Total</p>
