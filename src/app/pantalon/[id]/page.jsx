@@ -32,10 +32,9 @@ export default function Page({ params: paramsPromise }) {
       negro: "#000",
       verde: "#769e46",
     };
-  
+
     return colorMap[color] || "#fff";
   }
-  
 
   const handleAddToCart = () => {
     if (!selectedSize) {
@@ -149,7 +148,6 @@ export default function Page({ params: paramsPromise }) {
               Añadir a la canasta
               <img src="assets/icons/cart.svg" alt="" />
             </button>
-            <span className="text-sm text-blue-800">Guía de tallas.</span>
           </div>
         </div>
       </div>
