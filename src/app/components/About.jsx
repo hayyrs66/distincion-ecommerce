@@ -3,7 +3,8 @@ import Marquee from "./Marquee"
 
 const About = () => {
   return (
-    <section className="w-full h-screen px-8">
+    <section className="w-full h-screen">
+      <Marquee />
     </section>
   )
 }

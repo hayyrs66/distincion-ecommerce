@@ -1,90 +1,98 @@
 "use client";
 import { useState } from "react";
+import { pantalones_general } from "../constants";
 
 export default function Page() {
-  // Datos de ejemplo para los pantalones
-  const pantalones = [
-    { id: 1, tipo: "Cargo", nombre: "Pantalón Cargo 1" },
-    { id: 2, tipo: "Semirecto", nombre: "Pantalón Semirecto 1" },
-    { id: 3, tipo: "Ajustado", nombre: "Pantalón Ajustado 1" },
-    { id: 4, tipo: "Jogger", nombre: "Pantalón Jogger 1" },
-    { id: 5, tipo: "Cargo", nombre: "Pantalón Cargo 2" },
-    { id: 6, tipo: "Semirecto", nombre: "Pantalón Semirecto 2" },
-    // Añadir más pantalones según sea necesario
-  ];
-
-  // Estado para la categoría seleccionada
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("Todo");
 
-  // Filtra los pantalones según la categoría seleccionada
   const pantalonesFiltrados =
     categoriaSeleccionada === "Todo"
-      ? pantalones
-      : pantalones.filter(
+      ? pantalones_general
+      : pantalones_general.filter(
           (pantalon) => pantalon.tipo === categoriaSeleccionada
         );
 
   return (
-    <section className="w-full h-full px-8 mt-20">
-      <h3 className="text-2xl font-normal tracking-tight">Pantalones</h3>
-      <div className="w-full mt-4 gap-2 flex items-center">
-        <button
-          className={`font-normal tracking-tight text-black border px-2 rounded-[4px] ${
-            categoriaSeleccionada === "Todo"
-              ? "bg-black/90 border-black/80 text-white"
-              : ""
-          }`}
-          onClick={() => setCategoriaSeleccionada("Todo")}
-        >
-          Todo
-        </button>
-        <button
-          className={`font-normal tracking-tight text-black border px-2 rounded-[4px] ${
-            categoriaSeleccionada === "Cargo"
-              ? "bg-black/90 border-black/80 text-white"
-              : ""
-          }`}
-          onClick={() => setCategoriaSeleccionada("Cargo")}
-        >
-          Cargo
-        </button>
-        <button
-          className={`font-normal tracking-tight text-black border px-2 rounded-[4px] ${
-            categoriaSeleccionada === "Semirecto"
-              ? "bg-black/90 border-black/80 text-white"
-              : ""
-          }`}
-          onClick={() => setCategoriaSeleccionada("Semirecto")}
-        >
-          Semirecto
-        </button>
-        <button
-          className={`font-normal tracking-tight text-black border px-2 rounded-[4px] ${
-            categoriaSeleccionada === "Ajustado"
-              ? "bg-black/90 border-black/80 text-white"
-              : ""
-          }`}
-          onClick={() => setCategoriaSeleccionada("Ajustado")}
-        >
-          Ajustado
-        </button>
-        <button
-          className={`font-normal tracking-tight text-black border px-2 rounded-[4px] ${
-            categoriaSeleccionada === "Jogger"
-              ? "bg-black/90 border-black/80 text-white"
-              : ""
-          }`}
-          onClick={() => setCategoriaSeleccionada("Jogger")}
-        >
-          Jogger
-        </button>
+    <section className="w-full h-full mt-20">
+      <div className="px-8">
+        <h3 className="text-2xl font-normal tracking-tight">Pantalones</h3>
+        <div className="w-full mt-4 gap-2 flex items-center">
+          <button
+            className={`font-normal tracking-tight text-sm text-black border px-3 py-1 rounded-[4px] ${
+              categoriaSeleccionada === "Todo"
+                ? "bg-black/90 border-black/80 text-white"
+                : ""
+            }`}
+            onClick={() => setCategoriaSeleccionada("Todo")}
+          >
+            Todo
+          </button>
+          <button
+            className={`font-normal tracking-tight text-sm text-black border px-3 py-1 rounded-[4px] ${
+              categoriaSeleccionada === "cargo"
+                ? "bg-black/90 border-black/80 text-white"
+                : ""
+            }`}
+            onClick={() => setCategoriaSeleccionada("cargo")}
+          >
+            Cargo
+          </button>
+          <button
+            className={`font-normal tracking-tight text-sm text-black border px-3 py-1 rounded-[4px] ${
+              categoriaSeleccionada === "semirecto"
+                ? "bg-black/90 border-black/80 text-white"
+                : ""
+            }`}
+            onClick={() => setCategoriaSeleccionada("semirecto")}
+          >
+            Semirecto
+          </button>
+          <button
+            className={`font-normal tracking-tight text-sm text-black border px-3 py-1 rounded-[4px] ${
+              categoriaSeleccionada === "ajustado"
+                ? "bg-black/90 border-black/80 text-white"
+                : ""
+            }`}
+            onClick={() => setCategoriaSeleccionada("ajustado")}
+          >
+            Ajustado
+          </button>
+          <button
+            className={`font-normal tracking-tight text-sm text-black border px-3 py-1 rounded-[4px] ${
+              categoriaSeleccionada === "jogger"
+                ? "bg-black/90 border-black/80 text-white"
+                : ""
+            }`}
+            onClick={() => setCategoriaSeleccionada("jogger")}
+          >
+            Jogger
+          </button>
+        </div>
       </div>
 
       {/* Lista de pantalones filtrados */}
-      <div className="mt-6">
+      <div className="w-full grid grid-cols-4 gap-2 px-2 mt-6">
         {pantalonesFiltrados.length > 0 ? (
           pantalonesFiltrados.map((pantalon) => (
-            <div key={pantalon.id}>{pantalon.nombre}</div>
+            <a key={pantalon.id} href={`pantalon/${pantalon.tipo}`}>
+              <article>
+                <div className="w-80">
+                  <img
+                    src={pantalon.imagen}
+                    className="w-full object-cover h-[390px]"
+                    alt=""
+                  />
+                </div>
+                <div className="px-2 py-4">
+                  <h4 className="text-base leading-4 tracking-tight font-normal">
+                    {pantalon.nombre}
+                  </h4>
+                  <p className="text-sm font-bold text-black/70">
+                    GTQ{pantalon.precio}
+                  </p>
+                </div>
+              </article>
+            </a>
           ))
         ) : (
           <p>No hay pantalones disponibles para esta categoría.</p>
@@ -93,3 +101,30 @@ export default function Page() {
     </section>
   );
 }
+
+  /* <div className="flex gap-2 items-center mt-2">
+                  <div className="flex items-center justify-center w-3 h-3 rounded-full border border-black/50">
+                    <div className="bg-[#769e46] w-2 h-2 rounded-full" />
+                  </div>
+                  <div className="flex items-center justify-center w-4 h-4 rounded-full border border-black/50">
+                    <div className="bg-[#0a1438] w-3 h-3 rounded-full" />
+                  </div>
+                  <div className="flex items-center justify-center w-4 h-4 rounded-full border border-black/50">
+                    <div className="bg-[#2f3437] w-3 h-3 rounded-full" />
+                  </div>
+                  <div className="flex items-center justify-center w-4 h-4 rounded-full border border-black/50">
+                    <div className="bg-[#b4b3b1] w-3 h-3 rounded-full" />
+                  </div>
+                  <div className="flex items-center justify-center w-4 h-4 rounded-full border border-black/50">
+                    <div className="bg-[#ede9d0] w-3 h-3 rounded-full" />
+                  </div>
+                  <div className="flex items-center justify-center w-4 h-4 rounded-full border border-black/50">
+                    <div className="bg-[#e9a404] w-3 h-3 rounded-full" />
+                  </div>
+                  <div className="flex items-center justify-center w-4 h-4 rounded-full border border-black/50">
+                    <div className="bg-[#835c3f] w-3 h-3 rounded-full" />
+                  </div>
+                  <div className="flex items-center justify-center w-4 h-4 rounded-full border border-black/50">
+                    <div className="bg-[#000] w-3 h-3 rounded-full" />
+                  </div>
+                </div> */

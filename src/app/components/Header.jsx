@@ -5,10 +5,10 @@ import Link from "next/link";
 
 const Header = () => {
   return (
-    <header className="w-full fixed top-0 left-0 py-2 z-10 items-center px-8 bg-white drop-shadow-sm flex justify-between">
+    <header className="w-full fixed top-0 left-0 py-2 z-10 items-center px-8 bg-white border-b border-b-gray-400/10 flex justify-between">
       <div className="flex flex-grow basis-0 gap-2">
         <Link
-          href="ropa"
+          href="/ropa"
           className="font-normal text-base text-black leading-[1rem]"
         >
           Pantalones
