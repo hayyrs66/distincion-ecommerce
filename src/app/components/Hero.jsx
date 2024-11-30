@@ -1,7 +1,6 @@
 import React from "react";
 import Showcase from "./Showcase";
 import Link from "next/link";
-import BagLogo from "./BagLogo";
 
 const Hero = () => {
   return (
