@@ -1,73 +1,66 @@
+// app/ropa/page.jsx
 "use client";
-import { useState } from "react";
-import { pantalones_general } from "../constants";
+
+import { useState, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation"; // Importar desde 'next/navigation'
+import { pantalones_general } from "../constants"; // Asegúrate de que la ruta sea correcta
 import Image from "next/image";
 
 export default function Page() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("Todo");
 
+  useEffect(() => {
+    const categoria = searchParams.get("categoria");
+    if (categoria && typeof categoria === "string") {
+      // Validar que la categoría existe en pantalones_general
+      const categoriaValida = pantalones_general.some(
+        (pantalon) => pantalon.tipo.toLowerCase() === categoria.toLowerCase()
+      );
+      setCategoriaSeleccionada(categoriaValida ? categoria : "Todo");
+    } else {
+      setCategoriaSeleccionada("Todo");
+    }
+  }, [searchParams]);
+
   const pantalonesFiltrados =
-    categoriaSeleccionada === "Todo"
+    categoriaSeleccionada.toLowerCase() === "todo"
       ? pantalones_general
       : pantalones_general.filter(
-          (pantalon) => pantalon.tipo === categoriaSeleccionada
+          (pantalon) => pantalon.tipo.toLowerCase() === categoriaSeleccionada.toLowerCase()
         );
+
+  const categorias = ["Todo", "cargo", "semirecto", "ajustado", "jogger"];
+
+  const handleCategoriaClick = (categoria) => {
+    setCategoriaSeleccionada(categoria);
+    // Actualizar la URL sin recargar la página
+    if (categoria.toLowerCase() === "todo") {
+      router.push("/ropa");
+    } else {
+      router.push(`/ropa?categoria=${categoria.toLowerCase()}`);
+    }
+  };
 
   return (
     <section className="w-full h-full mt-20">
       <div className="px-8">
         <h3 className="text-2xl font-normal tracking-tight">Pantalones</h3>
         <div className="w-full mt-4 gap-2 flex items-center">
-          <button
-            className={`font-normal tracking-tight text-sm text-black border px-3 py-1 rounded-[4px] ${
-              categoriaSeleccionada === "Todo"
-                ? "bg-black/90 border-black/80 text-white"
-                : ""
-            }`}
-            onClick={() => setCategoriaSeleccionada("Todo")}
-          >
-            Todo
-          </button>
-          <button
-            className={`font-normal tracking-tight text-sm text-black border px-3 py-1 rounded-[4px] ${
-              categoriaSeleccionada === "cargo"
-                ? "bg-black/90 border-black/80 text-white"
-                : ""
-            }`}
-            onClick={() => setCategoriaSeleccionada("cargo")}
-          >
-            Cargo
-          </button>
-          <button
-            className={`font-normal tracking-tight text-sm text-black border px-3 py-1 rounded-[4px] ${
-              categoriaSeleccionada === "semirecto"
-                ? "bg-black/90 border-black/80 text-white"
-                : ""
-            }`}
-            onClick={() => setCategoriaSeleccionada("semirecto")}
-          >
-            Semirecto
-          </button>
-          <button
-            className={`font-normal tracking-tight text-sm text-black border px-3 py-1 rounded-[4px] ${
-              categoriaSeleccionada === "ajustado"
-                ? "bg-black/90 border-black/80 text-white"
-                : ""
-            }`}
-            onClick={() => setCategoriaSeleccionada("ajustado")}
-          >
-            Ajustado
-          </button>
-          <button
-            className={`font-normal tracking-tight text-sm text-black border px-3 py-1 rounded-[4px] ${
-              categoriaSeleccionada === "jogger"
-                ? "bg-black/90 border-black/80 text-white"
-                : ""
-            }`}
-            onClick={() => setCategoriaSeleccionada("jogger")}
-          >
-            Jogger
-          </button>
+          {categorias.map((categoria) => (
+            <button
+              key={categoria}
+              className={`font-normal tracking-tight text-sm text-black border px-3 py-1 rounded-[4px] ${
+                categoriaSeleccionada.toLowerCase() === categoria.toLowerCase()
+                  ? "bg-black/90 border-black/80 text-white"
+                  : ""
+              }`}
+              onClick={() => handleCategoriaClick(categoria)}
+            >
+              {categoria.charAt(0).toUpperCase() + categoria.slice(1)}
+            </button>
+          ))}
         </div>
       </div>
 
