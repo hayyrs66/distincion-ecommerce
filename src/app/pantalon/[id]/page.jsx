@@ -69,27 +69,22 @@ export default function Page({ params: paramsPromise }) {
   }
 
   return (
-    <section className="w-full h-full grid grid-cols-clothes-section">
+    <section className="w-full h-full min-h-screen grid grid-cols-clothes-section">
       {/* Image Gallery */}
-      <div className="w-full grid grid-cols-2 gap-2">
-        <figure>
-          <ImageSkeleton
-            src={`/${selectedPantalon.imagenes[0][selectedColor][0]}`}
-            alt={`${selectedPantalon.nombre} ${selectedColor} frente`}
-            width={500}
-            height={500}
-            priority
-          />
-        </figure>
-        <figure>
-          <ImageSkeleton
-            src={`/${selectedPantalon.imagenes[0][selectedColor][1]}`}
-            alt={`${selectedPantalon.nombre} ${selectedColor} atrás`}
-            width={500}
-            height={500}
-            priority
-          />
-        </figure>
+      <div className="w-full h-full grid grid-cols-2 gap-1">
+        {selectedPantalon.imagenes[0][selectedColor].map((imagen, index) => (
+          <figure key={index} className="relative w-full h-full">
+            <ImageSkeleton
+              src={`/${imagen}`}
+              alt={`${selectedPantalon.nombre} ${selectedColor} imagen ${
+                index + 1
+              }`}
+              width={500}
+              height={500}
+              priority
+            />
+          </figure>
+        ))}
       </div>
 
       {/* Pantalon Details */}
