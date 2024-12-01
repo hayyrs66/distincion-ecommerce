@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { pantalones_general } from "../constants";
+import Image from "next/image";
 
 export default function Page() {
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("Todo");
@@ -75,12 +76,13 @@ export default function Page() {
         {pantalonesFiltrados.length > 0 ? (
           pantalonesFiltrados.map((pantalon) => (
             <a key={pantalon.id} href={`/pantalon/${pantalon.tipo}`}>
-              <article>
-                <div className="w-80">
-                  <img
-                    src={pantalon.imagen}
-                    className="w-full object-cover h-[390px]"
-                    alt=""
+              <article className="filter hover:filter">
+                <div className="w-80 relative h-[390px]">
+                  <Image
+                    src={`/${pantalon.imagen}`}
+                    alt={pantalon.nombre}
+                    fill
+                    style={{ objectFit: "cover" }}
                   />
                 </div>
                 <div className="px-2 py-4">
@@ -101,30 +103,3 @@ export default function Page() {
     </section>
   );
 }
-
-  /* <div className="flex gap-2 items-center mt-2">
-                  <div className="flex items-center justify-center w-3 h-3 rounded-full border border-black/50">
-                    <div className="bg-[#769e46] w-2 h-2 rounded-full" />
-                  </div>
-                  <div className="flex items-center justify-center w-4 h-4 rounded-full border border-black/50">
-                    <div className="bg-[#0a1438] w-3 h-3 rounded-full" />
-                  </div>
-                  <div className="flex items-center justify-center w-4 h-4 rounded-full border border-black/50">
-                    <div className="bg-[#2f3437] w-3 h-3 rounded-full" />
-                  </div>
-                  <div className="flex items-center justify-center w-4 h-4 rounded-full border border-black/50">
-                    <div className="bg-[#b4b3b1] w-3 h-3 rounded-full" />
-                  </div>
-                  <div className="flex items-center justify-center w-4 h-4 rounded-full border border-black/50">
-                    <div className="bg-[#ede9d0] w-3 h-3 rounded-full" />
-                  </div>
-                  <div className="flex items-center justify-center w-4 h-4 rounded-full border border-black/50">
-                    <div className="bg-[#e9a404] w-3 h-3 rounded-full" />
-                  </div>
-                  <div className="flex items-center justify-center w-4 h-4 rounded-full border border-black/50">
-                    <div className="bg-[#835c3f] w-3 h-3 rounded-full" />
-                  </div>
-                  <div className="flex items-center justify-center w-4 h-4 rounded-full border border-black/50">
-                    <div className="bg-[#000] w-3 h-3 rounded-full" />
-                  </div>
-                </div> */
