@@ -131,6 +131,8 @@ export const pantalones = [
         azul: [
           "assets/fotos/ajustado/AJUSTADO_AZUL_FRENTE.webp",
           "assets/fotos/ajustado/AJUSTADO_AZUL_ATRAS.webp",
+          "assets/fotos/ajustado/AJUSTADO_AZUL_ATRAS.webp",
+          "assets/fotos/ajustado/AJUSTADO_AZUL_ATRAS.webp",
         ],
         besh: [
           "assets/fotos/ajustado/AJUSTADO_BESH_FRENTE.webp",
