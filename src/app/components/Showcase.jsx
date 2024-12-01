@@ -1,48 +1,63 @@
-const Showcase = () => {
-  return (
-    <div className="w-full grid grid-cols-4 gap-2 p-2">
-      <div className="w-full relative cursor-pointer">
-        <img
-          src="assets/fotos/cargo/CARGO_VERDE_FRENTE.webp"
-          className="object-cover w-full h-full filter brightness-[.7] hover:brightness-[0.6] transition-all"
-          alt=""
+import Image from "next/image";
+import Link from "next/link";
+
+const GalleryItem = ({ src, alt, title }) => (
+  <Link href={`/ropa?categoria=${title.toLowerCase()}`} legacyBehavior>
+    <a>
+      <div className="relative cursor-pointer w-full h-[390px]">
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          className="object-cover filter brightness-75 hover:brightness-90 transition-all"
+          sizes="(max-width: 768px) 100vw,
+          (max-width: 1200px) 50vw,
+          25vw"
         />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/">
-          <h3 className="text-4xl stroke-black font-medium text-white">
-            Cargo
+        <div className="absolute inset-0 flex items-center justify-center">
+          <h3 className="text-4xl font-medium text-white stroke-black">
+            {title}
           </h3>
         </div>
       </div>
-      <div className="w-full relative cursor-pointer">
-        <img
-          src="assets/fotos/semi/SEMI_GRIS_CLARO_FRENTE.webp"
-          className="object-cover w-full h-full filter brightness-[.7] hover:brightness-[0.6] transition-all"
-          alt=""
+    </a>
+  </Link>
+);
+
+const Showcase = () => {
+  const items = [
+    {
+      src: "/assets/fotos/cargo/CARGO_VERDE_FRENTE.webp",
+      alt: "Cargo",
+      title: "Cargo",
+    },
+    {
+      src: "/assets/fotos/semi/SEMI_GRIS_CLARO_FRENTE.webp",
+      alt: "Semirecto",
+      title: "Semirecto",
+    },
+    {
+      src: "/assets/fotos/ajustado/AJUSTADO_KAKI_FRENTE.webp",
+      alt: "Ajustado",
+      title: "Ajustado",
+    },
+    {
+      src: "/assets/fotos/jogger/JOGGER_AZUL_FRENTE.webp",
+      alt: "Jogger",
+      title: "Jogger",
+    },
+  ];
+
+  return (
+    <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 p-2">
+      {items.map((item, index) => (
+        <GalleryItem
+          key={index}
+          src={item.src}
+          alt={item.alt}
+          title={item.title}
         />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/">
-          <h3 className="text-4xl font-medium text-white">Semirecto</h3>
-        </div>
-      </div>
-      <div className="w-full relative cursor-pointer">
-        <img
-          src="assets/fotos/ajustado/AJUSTADO_KAKI_FRENTE.webp"
-          className="object-cover w-full h-full filter brightness-[.7] hover:brightness-[0.6] transition-all"
-          alt=""
-        />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/">
-          <h3 className="text-4xl font-medium text-white">Ajustado</h3>
-        </div>
-      </div>
-      <div className="w-full relative cursor-pointer">
-        <img
-          src="assets/fotos/jogger/JOGGER_AZUL_FRENTE.webp"
-          className="object-cover w-full h-full filter brightness-[.7] hover:brightness-[0.6] transition-all"
-          alt=""
-        />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/">
-          <h3 className="text-4xl font-medium text-white">Jogger</h3>
-        </div>
-      </div>
+      ))}
     </div>
   );
 };
