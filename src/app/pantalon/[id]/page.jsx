@@ -102,7 +102,7 @@ export default function Page({ params: paramsPromise }) {
             className="text-black font-semibold text-lg"
             value={selectedPantalon.precio}
           >
-            Q{selectedPantalon.precio}
+            GTQ{selectedPantalon.precio}
           </data>
 
           {/* Size Selector */}
@@ -153,7 +153,6 @@ export default function Page({ params: paramsPromise }) {
               ))}
             </fieldset>
           </div>
-
           {/* Add to Cart */}
           <div>
             <button
