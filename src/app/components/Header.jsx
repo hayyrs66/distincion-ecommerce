@@ -39,7 +39,7 @@ const Header = () => {
           <Link
             href="/"
             title-header="Distinción"
-            className="text-4xl tracking-tighter font-normal text-black"
+            className="text-4xl tracking-tight font-semibold text-black"
           >
             DISTINCIÓN
           </Link>
