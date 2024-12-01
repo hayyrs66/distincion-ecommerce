@@ -1,12 +1,21 @@
 "use client";
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 // Crear el contexto
 const CartContext = createContext();
 
 // Proveedor del contexto
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(() => {
+    // Recuperar el carrito desde localStorage al inicio
+    const savedCart = localStorage.getItem("cartItems");
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
+
+  useEffect(() => {
+    // Guardar el carrito en localStorage cada vez que cambia
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
 
   const addToCart = (product) => {
     setCartItems((prevItems) => {
@@ -62,5 +71,4 @@ export const CartProvider = ({ children }) => {
   );
 };
 
-// Hook para usar el contexto del carrito
 export const useCart = () => useContext(CartContext);
