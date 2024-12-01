@@ -12,7 +12,7 @@ module.exports = {
         sans: ["var(--font-poppins)"],
       },
       backgroundImage: {
-        "hero-image": "url('/assets/images/santi.avif')",
+        "hero-image": "url('/assets/images/santi.webp')",
         "about-image": "url('/assets/images/santi.jpg')",
       },
 
