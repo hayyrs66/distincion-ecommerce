@@ -39,7 +39,7 @@ module.exports = {
         bigFont: "bigFont 400ms cubic-bezier(.23,.78,.63,.99) forwards",
       },
       gridTemplateColumns: {
-        "clothes-section": "1fr 0.5fr",
+        "clothes-section": "2fr 1fr",
       },
       borderRadius: {
         lg: "var(--radius)",
