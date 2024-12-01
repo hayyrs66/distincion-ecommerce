@@ -3,6 +3,7 @@ import { useEffect, useState, use } from "react";
 import { pantalones } from "../../constants";
 import { useCart } from "../../context/CartProvider";
 import { useToast } from "../../../hooks/use-toast";
+import Image from "next/image";
 
 export default function Page({ params: paramsPromise }) {
   const params = use(paramsPromise);
@@ -31,40 +32,12 @@ export default function Page({ params: paramsPromise }) {
       gris_claro: "#b4b3b1",
       gris_oscuro: "#2f3437",
       kaki: "#e9a404",
-      negro: "#000",
-      verde: "#769e46",
     };
-
-    return colorMap[color] || "#fff";
+    return colorMap[color] || "#000000";
   }
 
-  const handleAddToCart = () => {
-    if (!selectedSize) {
-      toast({
-        title: "Seleccione una talla",
-        description: "Debe seleccionar una talla antes de agregar al carrito",
-      });
-      return;
-    }
-
-    addToCart({
-      id: selectedPantalon.id,
-      name: selectedPantalon.nombre,
-      price: selectedPantalon.precio,
-      size: selectedSize,
-      color: selectedColor,
-      colorHex: getColorHex(selectedColor),
-      image: selectedPantalon.imagenes[0][selectedColor][0],
-    });
-
-    toast({
-      title: "Producto añadido",
-      description: "El producto fue añadido a la canasta",
-    });
-  };
-
-  if (!selectedPantalon) {
-    return <p>Cargando...</p>;
+  if (!params || !selectedPantalon) {
+    return <div>Error loading page</div>;
   }
 
   return (
@@ -72,15 +45,21 @@ export default function Page({ params: paramsPromise }) {
       {/* Image Gallery */}
       <div className="w-full grid grid-cols-2 gap-2">
         <figure>
-          <img
+          <Image
             src={`/${selectedPantalon.imagenes[0][selectedColor][0]}`}
             alt={`${selectedPantalon.nombre} ${selectedColor} frente`}
+            width={500}
+            height={500}
+            priority
           />
         </figure>
         <figure>
-          <img
+          <Image
             src={`/${selectedPantalon.imagenes[0][selectedColor][1]}`}
             alt={`${selectedPantalon.nombre} ${selectedColor} atrás`}
+            width={500}
+            height={500}
+            priority
           />
         </figure>
       </div>
@@ -102,7 +81,6 @@ export default function Page({ params: paramsPromise }) {
           <div className="mt-5">
             <fieldset className="flex gap-2">
               <legend className="mb-2">Selecciona la talla</legend>
-{/* 28, 30, 32, 34, 36 */}
               {["28", "30", "32", "34", "36"].map((size) => (
                 <label key={size}>
                   <input
