@@ -20,6 +20,7 @@ export default function ImageSkeleton({ src, alt, ...props }) {
         src={src}
         alt={alt}
         {...props}
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         onLoad={handleLoad}
         className={`transition-opacity duration-500 ${
           isLoading ? "opacity-0" : "opacity-100"
