@@ -69,17 +69,17 @@ const Cart = ({ openCart, closeCart }) => {
       <div className="w-full bg-white p-4">
         <div className="flex justify-between items-center w-full mb-2">
           <p className="font-light text-sm">Subtotal</p>
-          <p className="font-semibold text-sm text-black/80">Q{subtotal.toFixed(2)}</p>
+          <p className="font-semibold text-sm text-black/80">GTQ{subtotal.toFixed(2)}</p>
         </div>
         <div className="flex justify-between items-center w-full mb-2">
           <p className="font-light text-sm">Costo envío</p>
           <p className="font-semibold text-sm text-black/80">
-            Q{shippingCost.toFixed(2)}
+            GTQ{shippingCost.toFixed(2)}
           </p>
         </div>
         <div className="flex justify-between items-center w-full mb-4">
           <p className="font-light text-sm">Total</p>
-          <p className="font-semibold text-sm text-black/80">Q{total.toFixed(2)}</p>
+          <p className="font-semibold text-sm text-black/80">GTQ{total.toFixed(2)}</p>
         </div>
         <div className="w-full flex justify-center items-center">
           <button className="bg-black text-white font-light px-4 py-2 hover:bg-black/80 transition-colors rounded-md">
