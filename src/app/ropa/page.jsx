@@ -1,4 +1,3 @@
-// pages/ropa.js
 "use client";
 import { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
@@ -63,17 +62,18 @@ export default function Page() {
       </div>
 
       {/* Lista de pantalones filtrados */}
-      <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-2 mt-6">
+      <div className="w-full grid grid-cols-4 gap-2 px-2 mt-6">
         {pantalonesFiltrados.length > 0 ? (
           pantalonesFiltrados.map((pantalon) => (
             <a key={pantalon.id} href={`/pantalon/${pantalon.tipo}`}>
               <article className="filter hover:filter">
-                <div className="w-full relative h-[390px]">
+                <div className="w-80 relative h-[390px]">
                   <ImageSkeleton
                     src={`/${pantalon.imagen}`}
                     alt={pantalon.nombre}
                     fill
                     style={{ objectFit: "cover" }}
+                    placeholder="empty"
                   />
                 </div>
                 <div className="px-2 py-4">
