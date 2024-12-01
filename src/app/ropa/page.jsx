@@ -1,10 +1,11 @@
 "use client";
-import { useState, useEffect } from "react";
+
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { pantalones_general } from "../constants";
 import ImageSkeleton from "../components/ImageSkeleton";
 
-export default function Page() {
+function PantalonesPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("Todo");
@@ -92,5 +93,13 @@ export default function Page() {
         )}
       </div>
     </section>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <PantalonesPage />
+    </Suspense>
   );
 }
