@@ -82,7 +82,7 @@ const Cart = ({ openCart, closeCart }) => {
           <p className="font-semibold text-black/80">Q{total.toFixed(2)}</p>
         </div>
         <div className="w-full flex justify-center items-center">
-          <button className="bg-gradient-to-tr from-black to-black/70 text-white font-light px-8 py-2 rounded-md">
+          <button className="bg-black text-white font-light px-4 py-2 hover:bg-black/80 transition-colors rounded-md">
             Comprar
           </button>
         </div>
