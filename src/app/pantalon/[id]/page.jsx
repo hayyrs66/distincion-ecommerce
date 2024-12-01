@@ -3,7 +3,7 @@ import { useEffect, useState, use } from "react";
 import { pantalones } from "../../constants";
 import { useCart } from "../../context/CartProvider";
 import { useToast } from "../../../hooks/use-toast";
-import Image from "next/image";
+import ImageSkeleton from "../../components/ImageSkeleton";
 
 export default function Page({ params: paramsPromise }) {
   const params = use(paramsPromise);
@@ -73,7 +73,7 @@ export default function Page({ params: paramsPromise }) {
       {/* Image Gallery */}
       <div className="w-full grid grid-cols-2 gap-2">
         <figure>
-          <Image
+          <ImageSkeleton
             src={`/${selectedPantalon.imagenes[0][selectedColor][0]}`}
             alt={`${selectedPantalon.nombre} ${selectedColor} frente`}
             width={500}
@@ -82,7 +82,7 @@ export default function Page({ params: paramsPromise }) {
           />
         </figure>
         <figure>
-          <Image
+          <ImageSkeleton
             src={`/${selectedPantalon.imagenes[0][selectedColor][1]}`}
             alt={`${selectedPantalon.nombre} ${selectedColor} atrás`}
             width={500}
