@@ -15,7 +15,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="w-full fixed top-0 left-0 py-2 z-10 items-center px-8 bg-white border-b border-b-gray-400/10 flex justify-between">
+      <header className="w-full fixed top-0 left-0 py-2 z-10 items-center px-8 bg-white flex justify-between">
         {/* Links */}
         <div className="flex flex-grow basis-0 gap-2">
           <Link
@@ -46,7 +46,7 @@ const Header = () => {
         </div>
         {/* Search and Cart */}
         <div className="flex flex-grow justify-end basis-0 items-center gap-4">
-          <div className="relative flex items-center border bg-gray-100 border-gray-300 rounded-xl input outline-none px-4">
+          {/* <div className="relative flex items-center border bg-gray-100 border-gray-300 rounded-xl input outline-none px-4">
             <input
               placeholder="Buscar..."
               className="bg-transparent outline-none py-2 text-sm text-black placeholder:text-black rounded-md"
@@ -60,7 +60,7 @@ const Header = () => {
             >
               <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
             </svg>
-          </div>
+          </div> */}
           <div className="relative h-full">
             <button
               link-canasta="canasta"
