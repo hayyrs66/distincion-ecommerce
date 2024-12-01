@@ -1,10 +1,9 @@
-// app/ropa/page.jsx
+// pages/ropa.js
 "use client";
-
 import { useState, useEffect } from "react";
-import { useSearchParams, useRouter } from "next/navigation"; // Importar desde 'next/navigation'
-import { pantalones_general } from "../constants"; // Asegúrate de que la ruta sea correcta
-import Image from "next/image";
+import { useSearchParams, useRouter } from "next/navigation";
+import { pantalones_general } from "../constants";
+import ImageSkeleton from "../components/ImageSkeleton";
 
 export default function Page() {
   const searchParams = useSearchParams();
@@ -14,7 +13,6 @@ export default function Page() {
   useEffect(() => {
     const categoria = searchParams.get("categoria");
     if (categoria && typeof categoria === "string") {
-      // Validar que la categoría existe en pantalones_general
       const categoriaValida = pantalones_general.some(
         (pantalon) => pantalon.tipo.toLowerCase() === categoria.toLowerCase()
       );
@@ -28,14 +26,14 @@ export default function Page() {
     categoriaSeleccionada.toLowerCase() === "todo"
       ? pantalones_general
       : pantalones_general.filter(
-          (pantalon) => pantalon.tipo.toLowerCase() === categoriaSeleccionada.toLowerCase()
+          (pantalon) =>
+            pantalon.tipo.toLowerCase() === categoriaSeleccionada.toLowerCase()
         );
 
   const categorias = ["Todo", "cargo", "semirecto", "ajustado", "jogger"];
 
   const handleCategoriaClick = (categoria) => {
     setCategoriaSeleccionada(categoria);
-    // Actualizar la URL sin recargar la página
     if (categoria.toLowerCase() === "todo") {
       router.push("/ropa");
     } else {
@@ -65,13 +63,13 @@ export default function Page() {
       </div>
 
       {/* Lista de pantalones filtrados */}
-      <div className="w-full grid grid-cols-4 gap-2 px-2 mt-6">
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-2 mt-6">
         {pantalonesFiltrados.length > 0 ? (
           pantalonesFiltrados.map((pantalon) => (
             <a key={pantalon.id} href={`/pantalon/${pantalon.tipo}`}>
               <article className="filter hover:filter">
-                <div className="w-80 relative h-[390px]">
-                  <Image
+                <div className="w-full relative h-[390px]">
+                  <ImageSkeleton
                     src={`/${pantalon.imagen}`}
                     alt={pantalon.nombre}
                     fill
