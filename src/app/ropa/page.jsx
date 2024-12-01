@@ -61,14 +61,13 @@ function PantalonesPage() {
           ))}
         </div>
       </div>
-
       {/* Lista de pantalones filtrados */}
-      <div className="w-full grid grid-cols-4 gap-2 px-2 mt-6">
+      <div className="w-full grid grid-cols-4 gap-1 px-1 mt-6">
         {pantalonesFiltrados.length > 0 ? (
           pantalonesFiltrados.map((pantalon) => (
             <a key={pantalon.id} href={`/pantalon/${pantalon.tipo}`}>
               <article className="filter hover:filter">
-                <div className="w-80 relative h-[390px]">
+                <div className="w-full relative h-[500px]">
                   <ImageSkeleton
                     src={`/${pantalon.imagen}`}
                     alt={pantalon.nombre}
