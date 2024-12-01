@@ -32,12 +32,40 @@ export default function Page({ params: paramsPromise }) {
       gris_claro: "#b4b3b1",
       gris_oscuro: "#2f3437",
       kaki: "#e9a404",
+      negro: "#000",
+      verde: "#769e46",
     };
-    return colorMap[color] || "#000000";
+
+    return colorMap[color] || "#fff";
   }
 
-  if (!params || !selectedPantalon) {
-    return <div>Error loading page</div>;
+  const handleAddToCart = () => {
+    if (!selectedSize) {
+      toast({
+        title: "Seleccione una talla",
+        description: "Debe seleccionar una talla antes de agregar al carrito",
+      });
+      return;
+    }
+
+    addToCart({
+      id: selectedPantalon.id,
+      name: selectedPantalon.nombre,
+      price: selectedPantalon.precio,
+      size: selectedSize,
+      color: selectedColor,
+      colorHex: getColorHex(selectedColor),
+      image: selectedPantalon.imagenes[0][selectedColor][0],
+    });
+
+    toast({
+      title: "Producto añadido",
+      description: "El producto fue añadido a la canasta",
+    });
+  };
+
+  if (!selectedPantalon) {
+    return <p>Cargando...</p>;
   }
 
   return (
