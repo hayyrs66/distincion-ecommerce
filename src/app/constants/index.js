@@ -11,7 +11,7 @@ export const pantalones_general = [
     tipo: "ajustado",
     nombre: "Pantalón Ajustado",
     precio: 320,
-    imagen: "assets/fotos/ajustado/AJUSTADO_NEGRO_FRENTE.webp",
+    imagen: "assets/fotos/ajustado/AJUSTADO_NEGRO_FRENTE.avif",
   },
   {
     id: 3,
