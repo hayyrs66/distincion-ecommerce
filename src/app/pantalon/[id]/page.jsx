@@ -79,8 +79,8 @@ export default function Page({ params: paramsPromise }) {
               alt={`${selectedPantalon.nombre} ${selectedColor} imagen ${
                 index + 1
               }`}
-              width={500}
-              height={500}
+              width={600}
+              height={600}
               priority
             />
           </figure>
