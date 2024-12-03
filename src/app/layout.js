@@ -1,14 +1,14 @@
 import "./globals.css";
 import Header from "./components/Header";
-import { Roboto } from "next/font/google";
+import { Poppins } from "next/font/google";
 import { CartProvider } from "./context/CartProvider";
 import { Toaster } from "../components/ui/toaster";
 
-const roboto = Roboto({
+const roboto = Poppins({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-roboto",
-  weight: ["100", "300", "400", "500", "700",  "900"],
+  weight: ["100", "200", "300", "400", "500",  "600", "700", "800", "900"],
 });
 
 export const metadata = {
