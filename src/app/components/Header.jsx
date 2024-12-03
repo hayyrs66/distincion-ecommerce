@@ -3,6 +3,13 @@ import { useState } from "react";
 import Link from "next/link";
 import Cart from "./Cart";
 import { useCart } from "../context/CartProvider";
+import { Rubik } from "next/font/google";
+
+const parkinsans = Rubik({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["300"],
+});
 
 const Header = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -39,9 +46,9 @@ const Header = () => {
           <Link
             href="/"
             title-header="Distinción"
-            className="text-4xl tracking-tight font-semibold text-black"
+            className={`${parkinsans.className} text-3xl tracking-tighter font-extralight text-black"`}
           >
-            DISTINCIÓN
+            DISTINCION
           </Link>
         </div>
         {/* Search and Cart */}
