@@ -3,24 +3,24 @@ import Link from "next/link";
 
 const GalleryItem = ({ src, alt, title }) => (
   <Link href={`/ropa?categoria=${title.toLowerCase()}`} legacyBehavior>
-    <a>
-      <div className="relative cursor-pointer w-full h-[390px]">
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          className="object-cover filter brightness-75 hover:brightness-90 transition-all"
-          sizes="(max-width: 768px) 100vw,
+    <div className="relative cursor-pointer w-full h-[390px] group">
+      {/* Imagen con hover */}
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        className="object-cover filter brightness-90 transition-all rounded-sm group-hover:brightness-75"
+        sizes="(max-width: 768px) 100vw,
           (max-width: 1200px) 50vw,
           25vw"
-        />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <h3 className="text-4xl font-medium text-white stroke-black">
-            {title}
-          </h3>
-        </div>
+      />
+      {/* Texto centrado */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <h3 className="text-4xl font-medium text-white">
+          {title}
+        </h3>
       </div>
-    </a>
+    </div>
   </Link>
 );
 
@@ -49,16 +49,21 @@ const Showcase = () => {
   ];
 
   return (
-    <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 p-2">
-      {items.map((item, index) => (
-        <GalleryItem
-          key={index}
-          src={item.src}
-          alt={item.alt}
-          title={item.title}
-        />
-      ))}
-    </div>
+    <section className="w-full px-6 pt-12">
+      <h3 className="text-black text-3xl text-balance tracking-tight font-normal mb-8">
+        Compra por Categoría
+      </h3>
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
+        {items.map((item, index) => (
+          <GalleryItem
+            key={index}
+            src={item.src}
+            alt={item.alt}
+            title={item.title}
+          />
+        ))}
+      </div>
+    </section>
   );
 };
 
