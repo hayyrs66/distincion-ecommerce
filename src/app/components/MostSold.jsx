@@ -47,12 +47,12 @@ const MostSold = () => {
         </div>
 
         {/* Otro contenedor para contenido adicional */}
-        <div className="flex px-8 items-center rounded-sm">
+        <div className="flex h-[calc(100%-100px)] px-8 items-center rounded-sm">
           <div className="flex flex-col">
-            <h3 className="font-medium tracking-tighter text-4xl mb-4">
+            <h3 className="font-normal tracking-tighter text-4xl mb-4">
               Descuentos de Diciembre
             </h3>
-            <p className="leading-[1.5] text-black/80 font-normal text-pretty mb-8">
+            <p className="leading-[1.5] max-w-lg text-black/80 font-normal text-pretty mb-8">
               Nuestros pantalones más vendidos tienen descuentos especiales por
               tiempo limitado. Renueva tu estilo con calidad y precio increíble.
               ¡No lo dejes pasar!
