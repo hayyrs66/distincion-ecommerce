@@ -29,7 +29,7 @@ const Services = () => {
           </h3>
           <p className="font-normal tracking-tight">
             Paga con cualquier tarjeta.
-          </p>
+          </p>  
         </div>
         <div className="flex flex-col py-12 w-full h-full items-center gap-2 rounded-lg border-2 border-black/15 bg-white ">
           <CreditCard size={38} />
