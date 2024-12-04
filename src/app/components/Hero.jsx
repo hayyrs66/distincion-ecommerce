@@ -3,12 +3,11 @@ import Image from "next/image";
 
 const Hero = () => {
   return (
-    <section className="relative w-full h-screen bg-no-repeat bg-cover bg-top px-4">
+    <section className="relative w-full h-screen bg-no-repeat bg-cover bg-top">
       {/* Fondo gris detrás */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-indigo-50 to-indigo-100"></div>
-
+      <div className="absolute inset-0 -z-10"></div>
       {/* Contenido principal */}
-      <div className="container flex h-full items-center">
+      <div className="w-full flex h-full items-center bg-indigo-100">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full h-full items-center">
           {/* Columna de texto */}
           <div className="flex flex-col gap-4 h-full w-full justify-center px-12">
