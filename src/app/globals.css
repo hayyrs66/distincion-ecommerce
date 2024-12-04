@@ -8,7 +8,7 @@
   box-sizing: border-box;
 }
 
-html{
+html {
   scroll-behavior: smooth;
 }
 
@@ -19,5 +19,11 @@ body {
 @layer base {
   :root {
     --radius: 0.5rem;
+  }
+}
+
+@layer utilities {
+  .clip-bg {
+    clip-path: circle(50% at 50% 100%);
   }
 }
