@@ -47,6 +47,9 @@ module.exports = {
         sm: "calc(var(--radius) - 4px)",
       },
       colors: {},
+      fontSize:{
+        clamp_hero: "clamp(9rem, 36vw, 30rem)",
+      }
     },
   },
   plugins: [require("tailwindcss-animate")],
