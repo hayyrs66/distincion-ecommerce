@@ -21,7 +21,7 @@ const MostSold = () => {
                 Pantalón Cargo Verde
               </span>
               <p className="text-sm font-semibold">
-                GTQ170{" "}
+                GTQ200{" "}
                 <span className="line-through text-gray-600">GTQ230</span>
               </p>
             </div>
