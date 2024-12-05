@@ -11,12 +11,12 @@ const Hero = () => {
       <div className="w-full relative h-full flex justify-center items-center">
         <div className="w-full h-full flex flex-wrap justify-center items-center">
           <h2
-            className={`${leMurmure.className} text-[5rem] sm:text-[10rem] md:text-[15rem] lg:text-[20rem] xl:text-[25rem] 2xl:text-[30rem] tracking-tight font-medium text-white`}
+            className={`${leMurmure.className} tracking-tight font-medium text-white text-clamp_hero`}
           >
             Cole
           </h2>
           <h2
-            className={`${leMurmure.className} text_outline text-[5rem] sm:text-[10rem] md:text-[15rem] lg:text-[20rem] xl:text-[25rem] 2xl:text-[30rem]`}
+            className={`${leMurmure.className} tracking-tight font-medium text-white text_outline text-clamp_hero`}
           >
             cción
           </h2>
