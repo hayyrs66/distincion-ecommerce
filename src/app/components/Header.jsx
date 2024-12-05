@@ -65,7 +65,7 @@ const Header = () => {
           </Link>
         </div>
 
-        {/* Links for larger screens */}
+        {/* Enlaces para pantallas grandes */}
         <div className="hidden md:flex items-center justify-center gap-2">
           <Link href="/" className="font-normal text-base leading-[1rem]">
             Inicio
@@ -90,7 +90,7 @@ const Header = () => {
           </Link>
         </div>
 
-        {/* Menu button for small screens */}
+        {/* Botón de menú para pantallas pequeñas */}
         <div className="flex md:hidden items-center mr-2">
           <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? (
@@ -107,7 +107,7 @@ const Header = () => {
           </button>
         </div>
 
-        {/* Search and Cart */}
+        {/* Carrito y usuario */}
         <div className="flex md:flex-grow justify-end basis-0 items-center gap-4">
           <div className="flex items-center gap-2 h-full">
             <Heart
@@ -143,7 +143,55 @@ const Header = () => {
           </div>
         </div>
       </header>
-      {/* Cart Drawer */}
+
+      {/* Menú para pantallas pequeñas */}
+      {isMenuOpen && (
+        <nav className="fixed top-0 left-0 w-full h-full bg-white z-20 flex flex-col items-center justify-center">
+          <button onClick={() => setIsMenuOpen(false)} className="absolute top-5 right-5">
+            <X className="w-8 h-8" />
+          </button>
+          <Link
+            href="/"
+            className="text-2xl font-normal mb-4"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Inicio
+          </Link>
+          <Link
+            href="/ropa"
+            className="text-2xl font-normal mb-4"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Explorar
+          </Link>
+          <Link
+            href="/ropa"
+            className="text-2xl font-normal mb-4"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Contacto
+          </Link>
+          <Link
+            href="/ropa"
+            className="text-2xl font-normal mb-4"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Pantalones
+          </Link>
+          <Link
+            href="/colecciones"
+            className="text-2xl font-normal mb-4 relative"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Playeras
+            <span className="absolute bottom-1 right-0 w-16 h-4 text-orange-200 bg-orange-800 font-medium rounded-md text-xs flex justify-center items-center leading-[1rem] tracking-normal px-1 py-1">
+              Próximo
+            </span>
+          </Link>
+        </nav>
+      )}
+
+      {/* Carrito */}
       <Cart openCart={isCartOpen} closeCart={toggleCart} />
     </>
   );
