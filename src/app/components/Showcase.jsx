@@ -49,9 +49,10 @@ const Showcase = () => {
   ];
 
   return (
-    <section className="w-full px-6 pt-12">
-      <h3 className="text-black text-3xl text-balance tracking-tight font-normal mb-8">
-        Compra por Categoría
+    <section className="w-full px-6 mt-24">
+      <span className="text-black/70 tracking-wider font-medium text-lg uppercase">Descubre</span>
+      <h3 className="text-black text-4xl text-balance tracking-tight font-normal mb-8">
+        Categorías
       </h3>
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2">
         {items.map((item, index) => (
