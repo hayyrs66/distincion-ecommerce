@@ -15,7 +15,7 @@ export default function Home() {
         <MostSold />
         <Newsletter />
         <Services />
-        <About />
+        {/* <About /> */}
       </main>
     </div>
   );
