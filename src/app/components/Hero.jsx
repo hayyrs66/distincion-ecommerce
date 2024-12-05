@@ -1,8 +1,8 @@
-// import localFont from "next/font/local";
+import localFont from "next/font/local";
 
-// const leMurmure = localFont({
-//   src: "../fonts/lemurmure/LeMurmure-Regular.woff2",
-// });
+const leMurmure = localFont({
+  src: "../fonts/lemurmure/LeMurmure-Regular.woff2",
+});
 
 const Hero = () => {
   return (
