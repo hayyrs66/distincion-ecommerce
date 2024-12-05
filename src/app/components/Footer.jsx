@@ -39,32 +39,32 @@ const Footer = () => {
           <Link href="/ropa" className="text-black font-light text-base">
             Toda la Ropa
           </Link>
-          <Link href="/calzado" className="text-black font-light text-base">
+          <Link href="/" className="text-black font-light text-base">
             Playeras
           </Link>
-          <Link href="/accesorios" className="text-black font-light text-base">
+          <Link href="/" className="text-black font-light text-base">
             Nuevas Colecciones
           </Link>
         </div>
         <div className="flex flex-col gap-2 items-center md:items-start">
           <h2 className="text-black font-semibold text-lg">Información</h2>
-          <Link href="/politicas" className="text-black font-light text-base">
+          <Link href="/" className="text-black font-light text-base">
             Políticas de Privacidad
           </Link>
-          <Link href="/terminos" className="text-black font-light text-base">
+          <Link href="/" className="text-black font-light text-base">
             Términos y Condiciones
           </Link>
         </div>
         <div className="flex flex-col gap-2 items-center md:items-start">
           <h2 className="text-black font-semibold text-lg">Síguenos</h2>
           <a
-            href="https://facebook.com/distincion"
+            href="https://www.facebook.com/share/KqGvUA2NBkLPRSc3/?mibextid=LQQJ4d"
             className="text-black font-light text-base"
           >
             Facebook
           </a>
           <a
-            href="https://instagram.com/distincion"
+            href="https://www.instagram.com/distincion_gt/"
             className="text-black font-light text-base"
           >
             Instagram
