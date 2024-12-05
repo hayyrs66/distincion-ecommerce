@@ -9,17 +9,17 @@ const rubik = Rubik({
 
 const Footer = () => {
   return (
-    <footer className="w-full px-12 pt-12 border-t">
-      <div className="grid grid-cols-4 w-full">
-        <div className="flex flex-col pb-12 gap-3">
+    <footer className="w-full px-6 md:px-12 pt-12 border-t">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 w-full">
+        <div className="flex flex-col pb-12 gap-3 items-center justify-center">
           <Link href="/" title-header="Distinción">
             <h1
-              className={`${rubik.className} text-3xl text-black tracking-wide font-normal text-black"`}
+              className={`${rubik.className} text-2xl md:text-3xl text-black tracking-wide font-normal`}
             >
               DISTINCION
             </h1>
           </Link>
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col items-center justify-center gap-1">
             <a
               href="tel:+50240245774"
               className="text-black font-light text-base w-fit"
@@ -27,15 +27,15 @@ const Footer = () => {
               +502 4024 5774
             </a>
             <a
-              href="mail:contacto@distincion.shop"
+              href="mailto:contacto@distincion.shop"
               className="text-black font-light text-base w-fit"
             >
               contacto@distincion.shop
             </a>
           </div>
         </div>
-        <div className="flex flex-col gap-2">
-          <h2 className="text-black font-semibold text-base">Explorar</h2>
+        <div className="flex flex-col gap-2 items-center md:items-start">
+          <h2 className="text-black font-semibold text-lg">Explorar</h2>
           <Link href="/ropa" className="text-black font-light text-base">
             Toda la Ropa
           </Link>
@@ -46,8 +46,8 @@ const Footer = () => {
             Nuevas Colecciones
           </Link>
         </div>
-        <div className="flex flex-col gap-2">
-          <h2 className="text-black font-semibold text-base">Información</h2>
+        <div className="flex flex-col gap-2 items-center md:items-start">
+          <h2 className="text-black font-semibold text-lg">Información</h2>
           <Link href="/politicas" className="text-black font-light text-base">
             Políticas de Privacidad
           </Link>
@@ -55,8 +55,8 @@ const Footer = () => {
             Términos y Condiciones
           </Link>
         </div>
-        <div className="flex flex-col gap-2">
-          <h2 className="text-black font-semibold text-base">Síguenos</h2>
+        <div className="flex flex-col gap-2 items-center md:items-start">
+          <h2 className="text-black font-semibold text-lg">Síguenos</h2>
           <a
             href="https://facebook.com/distincion"
             className="text-black font-light text-base"
@@ -71,8 +71,8 @@ const Footer = () => {
           </a>
         </div>
       </div>
-      <div className="flex justify-center border-t border-t-black/20 px-8 py-4">
-        <small>
+      <div className="flex justify-center border-t border-t-black/20 px-8 py-4 mt-8">
+        <small className="text-sm text-center">
           &copy; {new Date().getFullYear()} Distinción. Todos los derechos
           reservados.
         </small>
