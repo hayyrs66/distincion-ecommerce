@@ -43,9 +43,9 @@ function PantalonesPage() {
 
   return (
     <section className="w-full h-full mt-20">
-      <div className="px-8">
+      <div className="px-4 sm:px-6 md:px-8">
         <h3 className="text-2xl font-normal tracking-tight">Pantalones</h3>
-        <div className="w-full mt-4 gap-2 flex items-center">
+        <div className="w-full mt-4 gap-2 flex flex-wrap items-center">
           {categorias.map((categoria) => (
             <button
               key={categoria}
@@ -62,19 +62,21 @@ function PantalonesPage() {
         </div>
       </div>
       {/* Lista de pantalones filtrados */}
-      <div className="w-full grid grid-cols-4 gap-1 px-1 mt-6">
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 px-2 mt-6">
         {pantalonesFiltrados.length > 0 ? (
           pantalonesFiltrados.map((pantalon) => (
             <a key={pantalon.id} href={`/pantalon/${pantalon.tipo}`}>
               <article className="filter hover:filter">
-                <div className="w-full relative h-[500px]">
-                  <ImageSkeleton
-                    src={`/${pantalon.imagen}`}
-                    alt={pantalon.nombre}
-                    fill
-                    style={{ objectFit: "cover" }}
-                    placeholder="empty"
-                  />
+                <div className="w-full relative">
+                  <div className="aspect-[3/4]">
+                    <ImageSkeleton
+                      src={`/${pantalon.imagen}`}
+                      alt={pantalon.nombre}
+                      fill
+                      style={{ objectFit: "cover" }}
+                      placeholder="empty"
+                    />
+                  </div>
                 </div>
                 <div className="px-2 py-4">
                   <h4 className="text-base leading-4 tracking-tight font-normal">
