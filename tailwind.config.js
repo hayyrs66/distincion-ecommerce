@@ -9,7 +9,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-roboto)"],
+        sans: ["var(--font-poppins)"],
       },
       backgroundImage: {
         "hero-image": "url('/assets/images/santi.webp')",
