@@ -71,7 +71,7 @@ export default function Page({ params: paramsPromise }) {
   return (
     <section className="w-full h-full min-h-screen grid grid-cols-1 lg:grid-cols-[60%_40%]">
       {/* Detalles del Pantalón */}
-      <div className="w-full relative order-1 lg:order-2">
+      <div className="w-full relative order-1 mt-10 lg:mt-0 lg:order-2">
         <div className="mt-5 p-5 lg:mt-10 lg:p-10 top-0 lg:top-10 lg:sticky">
           <h2 className="text-black/80 text-lg font-normal">
             {selectedPantalon.nombre}
