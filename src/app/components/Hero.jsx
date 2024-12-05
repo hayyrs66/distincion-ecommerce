@@ -9,13 +9,13 @@ const Hero = () => {
     <section className="relative w-full flex justify-center items-center h-[calc(100vh_+_5rem)] bg-[#838383]">
       {/* Contenido principal */}
       <div className="w-full relative h-full flex justify-center items-center">
-        <div className="w-full h-full flex justify-center items-center -translate-y-28">
+        <div className="w-full h-full flex justify-center items-center">
           <h2
-            className={`${leMurmure.className} text-[30rem] tracking-tight font-medium text-white `}
+            className={`${leMurmure.className} text-[32rem] tracking-tight font-medium text-white `}
           >
             Cole
           </h2>
-          <h2 className={`${leMurmure.className} text_outline text-[30rem]`}>
+          <h2 className={`${leMurmure.className} text_outline text-[32rem]`}>
             cción
           </h2>
         </div>
