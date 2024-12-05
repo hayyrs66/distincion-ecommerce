@@ -69,27 +69,10 @@ export default function Page({ params: paramsPromise }) {
   }
 
   return (
-    <section className="w-full h-full min-h-screen grid grid-cols-clothes-section">
-      {/* Image Gallery */}
-      <div className="w-full h-full grid grid-cols-2 gap-1">
-        {selectedPantalon.imagenes[0][selectedColor].map((imagen, index) => (
-          <figure key={index} className="relative w-full h-full">
-            <ImageSkeleton
-              src={`/${imagen}`}
-              alt={`${selectedPantalon.nombre} ${selectedColor} imagen ${
-                index + 1
-              }`}
-              width={600}
-              height={600}
-              priority
-            />
-          </figure>
-        ))}
-      </div>
-
-      {/* Pantalon Details */}
-      <div className="w-full relative">
-        <div className="mt-10 p-10 top-10 sticky">
+    <section className="w-full h-full min-h-screen grid grid-cols-1 lg:grid-cols-[60%_40%]">
+      {/* Detalles del Pantalón */}
+      <div className="w-full relative order-1 lg:order-2">
+        <div className="mt-5 p-5 lg:mt-10 lg:p-10 top-0 lg:top-10 lg:sticky">
           <h2 className="text-black/80 text-lg font-normal">
             {selectedPantalon.nombre}
           </h2>
@@ -100,7 +83,7 @@ export default function Page({ params: paramsPromise }) {
             GTQ{selectedPantalon.precio}
           </data>
 
-          {/* Size Selector */}
+          {/* Selector de Talla */}
           <div className="mt-5">
             <fieldset className="flex gap-2">
               <legend className="mb-2">Selecciona la talla</legend>
@@ -108,7 +91,7 @@ export default function Page({ params: paramsPromise }) {
                 <label key={size}>
                   <input
                     className="appearance-none relative bg-white w-9 h-9 rounded-full border border-gray-600 checked:text-white checked:bg-black cursor-pointer
-                       after:absolute after:content-[attr(value)] after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:text-xs transition-colors"
+                             after:absolute after:content-[attr(value)] after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2 after:text-xs transition-colors"
                     type="radio"
                     name="size"
                     value={size}
@@ -119,7 +102,7 @@ export default function Page({ params: paramsPromise }) {
             </fieldset>
           </div>
 
-          {/* Color Selector */}
+          {/* Selector de Color */}
           <div className="w-full border-t mt-3 pt-2">
             <fieldset className="flex gap-2">
               <legend className="mb-2">Selecciona el color</legend>
@@ -133,7 +116,7 @@ export default function Page({ params: paramsPromise }) {
                     onChange={() => setSelectedColor(color)}
                     className="hidden"
                   />
-                  {/* Circle representing the color */}
+                  {/* Círculo representando el color */}
                   <div
                     className={`w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center ${
                       selectedColor === color ? "ring-2 ring-black" : ""
@@ -148,7 +131,7 @@ export default function Page({ params: paramsPromise }) {
               ))}
             </fieldset>
           </div>
-          {/* Add to Cart */}
+          {/* Añadir al Carrito */}
           <div>
             <button
               onClick={() => {
@@ -160,6 +143,26 @@ export default function Page({ params: paramsPromise }) {
             </button>
           </div>
         </div>
+      </div>
+
+      {/* Galería de Imágenes */}
+      <div className="w-full h-full grid grid-cols-1 sm:grid-cols-2 gap-1 order-2 lg:order-1">
+        {selectedPantalon.imagenes[0][selectedColor].map((imagen, index) => (
+          <figure key={index} className="relative w-full">
+            <div className="aspect-[3/4]">
+              <ImageSkeleton
+                src={`/${imagen}`}
+                alt={`${selectedPantalon.nombre} ${selectedColor} imagen ${
+                  index + 1
+                }`}
+                fill
+                style={{ objectFit: "cover" }}
+                placeholder="empty"
+                priority
+              />
+            </div>
+          </figure>
+        ))}
       </div>
     </section>
   );
