@@ -2,10 +2,9 @@
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import Cart from "./Cart";
 import { useCart } from "../context/CartProvider";
 import { Rubik } from "next/font/google";
-import { Heart, User, ShoppingBag } from "lucide-react";
+import { Heart, User, ShoppingBag, Menu, X } from "lucide-react";
 
 const rubik = Rubik({
   subsets: ["latin"],
@@ -15,15 +14,16 @@ const rubik = Rubik({
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { cartItems } = useCart();
-  const pathname = usePathname(); // Obtener la ruta actual
-  const isHomePage = pathname === "/"; // Verificar si estás en la página raíz
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
 
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   useEffect(() => {
     if (!isHomePage) {
-      setIsScrolled(true); // En otras páginas, el header siempre es blanco con elementos negros
+      setIsScrolled(true);
       return;
     }
 
@@ -58,8 +58,8 @@ const Header = () => {
         </Link>
       </div>
 
-      {/* Links */}
-      <div className="flex items-center justify-center gap-2">
+      {/* Links for larger screens */}
+      <div className="hidden md:flex items-center justify-center gap-2">
         <Link href="/" className="font-normal text-base leading-[1rem]">
           Inicio
         </Link>
@@ -83,17 +83,31 @@ const Header = () => {
         </Link>
       </div>
 
+      {/* Menu button for small screens */}
+      <div className="flex md:hidden items-center mr-2">
+        <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          {isMenuOpen ? (
+            <X
+              color={`${isScrolled ? "#000" : "#fff"}`}
+              className="transition-colors w-6 h-6"
+            />
+          ) : (
+            <Menu
+              color={`${isScrolled ? "#000" : "#fff"}`}
+              className="transition-colors w-8 h-8"
+            />
+          )}
+        </button>
+      </div>
+
       {/* Search and Cart */}
-      <div className="flex flex-grow justify-end basis-0 items-center gap-4">
+      <div className="flex md:flex-grow justify-end basis-0 items-center gap-4">
         <div className="flex items-center gap-2 h-full">
           <Heart
             color={`${isScrolled ? "#000" : "#fff"}`}
             className="transition-colors"
           />
-          <button
-            onClick={() => setIsCartOpen(!isCartOpen)}
-            className="flex gap-3 relative items-center font-normal text-base"
-          >
+          <button className="flex gap-3 relative items-center font-normal text-base">
             <ShoppingBag
               color={`${isScrolled ? "#000" : "#fff"}`}
               className="transition-colors"
@@ -118,6 +132,61 @@ const Header = () => {
           </button>
         </div>
       </div>
+      {/* Menú móvil */}
+      {isMenuOpen && (
+        <div
+          className={`fixed top-0 left-0 w-full h-full bg-white z-20 flex flex-col items-center justify-center`}
+        >
+          {/* Botón de cerrar */}
+          <button
+            onClick={() => setIsMenuOpen(false)}
+            className="absolute top-4 right-4"
+          >
+            <X color="#000" className="w-8 h-8" />
+          </button>
+          {/* Enlaces */}
+          <div className="flex flex-col items-center gap-6 mt-12">
+            <Link
+              href="/"
+              onClick={() => setIsMenuOpen(false)}
+              className="font-normal text-2xl leading-[1rem] text-black"
+            >
+              Inicio
+            </Link>
+            <Link
+              href="/ropa"
+              onClick={() => setIsMenuOpen(false)}
+              className="font-normal text-2xl leading-[1rem] text-black"
+            >
+              Explorar
+            </Link>
+            <Link
+              href="/ropa"
+              onClick={() => setIsMenuOpen(false)}
+              className="font-normal text-2xl leading-[1rem] text-black"
+            >
+              Contacto
+            </Link>
+            <Link
+              href="/ropa"
+              onClick={() => setIsMenuOpen(false)}
+              className="font-normal text-2xl leading-[1rem] text-black"
+            >
+              Pantalones
+            </Link>
+            <Link
+              href="/colecciones"
+              onClick={() => setIsMenuOpen(false)}
+              className="relative font-normal text-2xl leading-[1rem] text-black"
+            >
+              Playeras
+              <span className="absolute bottom-[-1.5rem] right-[-2rem] w-16 h-4 text-orange-200 bg-orange-800 font-medium rounded-md text-xs flex justify-center items-center leading-[1rem] tracking-normal px-1 py-1 transition-all">
+                Próximo
+              </span>
+            </Link>
+          </div>
+        </div>
+      )}
     </header>
   );
 };
