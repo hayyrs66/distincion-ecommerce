@@ -80,7 +80,7 @@ const Header = () => {
             Pantalones
           </Link>
           <Link
-            href="/colecciones"
+            href="/"
             className="relative font-normal text-base leading-[1rem]"
           >
             Playeras
@@ -179,7 +179,7 @@ const Header = () => {
             Pantalones
           </Link>
           <Link
-            href="/colecciones"
+            href="/"
             className="text-2xl font-normal mb-4 relative"
             onClick={() => setIsMenuOpen(false)}
           >
