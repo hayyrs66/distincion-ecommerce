@@ -2,14 +2,14 @@ import "./globals.css";
 import Header from "./components/Header";
 import { Poppins } from "next/font/google";
 import { CartProvider } from "./context/CartProvider";
-import { Toaster } from "../components/ui/toaster"
+import { Toaster } from "../components/ui/toaster";
 import Footer from "./components/Footer";
 
 const roboto = Poppins({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-roboto",
-  weight: ["100", "200", "300", "400", "500",  "600", "700", "800", "900"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata = {
@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
         <CartProvider>
           <Header />
           {children}
-          <Footer />  
+          <Footer />
           <Toaster />
         </CartProvider>
       </body>
