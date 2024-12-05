@@ -82,14 +82,20 @@ const Header = () => {
         <div className="flex flex-grow justify-end basis-0 items-center gap-4">
           <div className="flex items-center gap-2 h-full">
             <div>
-              <Heart color={`${isWindowHeight ? "#000" : "#fff"}`} className="transition-colors" />
+              <Heart
+                color={`${isWindowHeight ? "#000" : "#fff"}`}
+                className="transition-colors"
+              />
             </div>
             <button
               link-canasta="canasta"
               onClick={toggleCart}
               className="flex gap-3 relative items-center font-normal text-base text-white leading-[1rem]"
             >
-              <ShoppingBag color={`${isWindowHeight ? "#000" : "#fff"}`} className="transition-colors" />
+              <ShoppingBag
+                color={`${isWindowHeight ? "#000" : "#fff"}`}
+                className="transition-colors"
+              />
               <span
                 className={`absolute bottom-6 right-1 w-4 h-4 ${
                   totalItems > 0 ? "bg-red-500" : "bg-black/50"
@@ -103,7 +109,10 @@ const Header = () => {
                 isWindowHeight ? "bg-black" : "bg-white"
               } rounded-md ml-3`}
             >
-              <User color={`${isWindowHeight ? "#fff" : "#000"}`} className="transition-colors" />
+              <User
+                color={`${isWindowHeight ? "#fff" : "#000"}`}
+                className="transition-colors"
+              />
             </button>
           </div>
         </div>
