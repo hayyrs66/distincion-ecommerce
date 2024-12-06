@@ -12,7 +12,7 @@ const CartItem = ({ item, onIncrease, onDecrease, onRemove }) => {
           <img
             width={70}
             height={70}
-            src={`/${item.image}`}
+            src={item.image}
             alt={`${item.name} - ${item.color}`}
             className="object-cover rounded-md"
           />
