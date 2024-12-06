@@ -28,16 +28,15 @@ const Cart = ({ openCart, closeCart }) => {
       <div className="w-full flex pt-6 px-6 justify-between items-center">
         <div className="flex gap-2 items-center">
           <h4 className="text-xl font-normal tracking-tight">
-            Canasta de Compra
+            Carrito de compra
           </h4>
-          <BagLogo fillColor="fill-black" />
         </div>
         <button
           onClick={closeCart}
           aria-label="Cerrar carrito"
-          className="bg-gray-200 px-2 py-1 rounded-md hover:bg-gray-300 transition-colors"
+          className="px-2 py-1 rounded-md hover:text-black/70 transition-colors"
         >
-          <Close />
+          Cerrar
         </button>
       </div>
 
