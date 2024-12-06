@@ -1,3 +1,4 @@
+process.loadEnvFile();
 import { EmailTemplate } from "@/app/components/email-template";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
@@ -7,8 +8,8 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function POST() {
   try {
     const { data, error } = await resend.emails.send({
-      from: "Distinción <pedidos@distincion.shop>",
-      to: ["contacto@distincion.shop"],
+      from: "Distinción <onboarding@resend.dev>",
+      to: ["rayrtsx@proton.me"],
       subject: "Compra en línea",
       react: EmailTemplate({ firstName: "Daniel" }),
       text: "",
