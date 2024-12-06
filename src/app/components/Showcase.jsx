@@ -27,22 +27,22 @@ const GalleryItem = ({ src, alt, title }) => (
 const Showcase = () => {
   const items = [
     {
-      src: "/assets/fotos/cargo/CARGO_VERDE_FRENTE.webp",
+      src: "https://utfs.io/f/Kd9w79vOPqyd5mDxIIoJEPUpkqQyHDj6lgmSwNtbV0xMLnsv",
       alt: "Cargo",
       title: "Cargo",
     },
     {
-      src: "/assets/fotos/semi/SEMI_GRIS_CLARO_FRENTE.webp",
+      src: "https://utfs.io/f/Kd9w79vOPqydW9KBtWRjeonZ8PiYkrWvxUJ3R50hdqXT9EfN",
       alt: "Semirecto",
       title: "Semirecto",
     },
     {
-      src: "/assets/fotos/ajustado/AJUSTADO_KAKI_FRENTE.webp",
+      src: "https://utfs.io/f/Kd9w79vOPqydFjEGsv7HjCeFGThkYXVJaWLqSm1fvZA3NIKg",
       alt: "Ajustado",
       title: "Ajustado",
     },
     {
-      src: "/assets/fotos/jogger/JOGGER_AZUL_FRENTE.webp",
+      src: "https://utfs.io/f/Kd9w79vOPqyd0yIZzLEAJplcHaKzDqNufIrBGUx298Yh5OZ0",
       alt: "Jogger",
       title: "Jogger",
     },

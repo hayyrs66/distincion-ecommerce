@@ -15,7 +15,7 @@ const MostSold = () => {
           {/* Imagen 1 con footer */}
           <div className="flex flex-col items-center w-full">
             <img
-              src="/assets/real_fotos/cargo/CARGO-VERDE-ADELANTE.webp"
+              src="https://utfs.io/f/Kd9w79vOPqydbrw1IAyltA9QsXfP5kTyGSBuxCzFKMv3gicZ"
               alt="Cargo Verde"
               className="object-cover w-full h-auto rounded-sm"
             />
@@ -33,7 +33,7 @@ const MostSold = () => {
           {/* Imagen 2 con footer */}
           <div className="flex flex-col items-center w-full">
             <img
-              src="/assets/real_fotos/jogger/JOGGER-NEGRO-ADELANTE.webp"
+              src="https://utfs.io/f/Kd9w79vOPqydWmev72RjeonZ8PiYkrWvxUJ3R50hdqXT9EfN"
               alt="Jogger Negro"
               className="object-cover w-full h-auto rounded-sm"
             />

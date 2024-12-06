@@ -151,7 +151,7 @@ export default function Page({ params: paramsPromise }) {
           <figure key={index} className="relative w-full">
             <div className="aspect-[3/4]">
               <ImageSkeleton
-                src={`/${imagen}`}
+                src={imagen}
                 alt={`${selectedPantalon.nombre} ${selectedColor} imagen ${
                   index + 1
                 }`}

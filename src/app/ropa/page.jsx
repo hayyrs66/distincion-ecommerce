@@ -70,7 +70,7 @@ function PantalonesPage() {
                 <div className="w-full relative">
                   <div className="aspect-[3/4]">
                     <ImageSkeleton
-                      src={`/${pantalon.imagen}`}
+                      src={pantalon.imagen}
                       alt={pantalon.nombre}
                       fill
                       style={{ objectFit: "cover" }}

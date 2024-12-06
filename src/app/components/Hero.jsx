@@ -1,4 +1,5 @@
 import localFont from "next/font/local";
+import Image from "next/image";
 
 const leMurmure = localFont({
   src: "../fonts/lemurmure/LeMurmure-Regular.woff2",
@@ -21,9 +22,9 @@ const Hero = () => {
             cción
           </h2>
         </div>
-        <img
-          src="/person_hero.png"
-          alt=""
+        <Image
+          src="https://utfs.io/f/Kd9w79vOPqydQNVQQL9YcoPR0brp9HtyEFAwD3djin4ZBsfS"
+          alt="Modelo con pantalón cargo de tienda Distinción Guatemala"
           width={450}
           height={450}
           className="absolute bottom-0"
