@@ -2,7 +2,7 @@ import "./globals.css";
 import Header from "./components/Header";
 import { CartProvider } from "./context/CartProvider";
 
-import { Toaster } from "../components/ui/toaster";
+import { Toaster } from "../shadcn/ui/toaster";
 import Footer from "./components/Footer";
 
 export const metadata = {
