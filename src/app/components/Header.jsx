@@ -51,7 +51,7 @@ const Header = () => {
           isScrolled
             ? "bg-white text-black"
             : isHomePage
-            ? "bg-transparent text-white"
+            ? "bg-[#838383] text-white"
             : "bg-white text-black"
         }`}
       >
@@ -59,7 +59,7 @@ const Header = () => {
         <div className="flex flex-grow basis-0 gap-2">
           <Link
             href="/"
-            className={`${rubik.className} text-4xl tracking-wide font-extralight`}
+            className={`${rubik.className} text-3xl tracking-wide font-extralight`}
           >
             DISTINCION
           </Link>
@@ -67,24 +67,36 @@ const Header = () => {
 
         {/* Enlaces para pantallas grandes */}
         <div className="hidden md:flex items-center justify-center gap-2">
-          <Link href="/" className="font-normal text-base leading-[1rem]">
+          <Link
+            href="/"
+            className="font-normal tracking-tight  text-base leading-[1rem]"
+          >
             Inicio
           </Link>
-          <Link href="/ropa" className="font-normal text-base leading-[1rem]">
+          <Link
+            href="/ropa"
+            className="font-normal tracking-tight  text-base leading-[1rem]"
+          >
             Explorar
           </Link>
-          <Link href="/ropa" className="font-normal text-base leading-[1rem]">
+          <Link
+            href="/ropa"
+            className="font-normal tracking-tight  text-base leading-[1rem]"
+          >
             Contacto
           </Link>
-          <Link href="/ropa" className="font-normal text-base leading-[1rem]">
+          <Link
+            href="/ropa"
+            className="font-normal tracking-tight  text-base leading-[1rem]"
+          >
             Pantalones
           </Link>
           <Link
             href="/"
-            className="relative font-normal text-base leading-[1rem]"
+            className="relative font-normal tracking-tight  text-base leading-[1rem]"
           >
             Playeras
-            <span className="absolute bottom-5 right-0 w-16 h-4 text-orange-200 bg-orange-800 font-medium rounded-md text-xs flex justify-center items-center leading-[1rem] tracking-normal px-1 py-1 translate-x-[50%] translate-y-[40%] transition-all">
+            <span className="absolute bottom-5 right-0 w-16 h-4 text-orange-100 bg-orange-600 font-medium rounded-md text-xs flex justify-center items-center leading-[1rem] tracking-normal px-1 py-1 translate-x-[50%] translate-y-[40%] transition-all">
               Próximo
             </span>
           </Link>
@@ -147,7 +159,10 @@ const Header = () => {
       {/* Menú para pantallas pequeñas */}
       {isMenuOpen && (
         <nav className="fixed top-0 left-0 w-full h-full bg-white z-20 flex flex-col items-center justify-center">
-          <button onClick={() => setIsMenuOpen(false)} className="absolute top-5 right-5">
+          <button
+            onClick={() => setIsMenuOpen(false)}
+            className="absolute top-5 right-5"
+          >
             <X className="w-8 h-8" />
           </button>
           <Link
@@ -184,7 +199,7 @@ const Header = () => {
             onClick={() => setIsMenuOpen(false)}
           >
             Playeras
-            <span className="absolute bottom-1 right-0 w-16 h-4 text-orange-200 bg-orange-800 font-medium rounded-md text-xs flex justify-center items-center leading-[1rem] tracking-normal px-1 py-1">
+            <span className="absolute bottom-1 right-0 w-16 h-4 text-orange-100 bg-orange-600 font-medium rounded-md text-xs flex justify-center items-center leading-[1rem] tracking-normal px-1 py-1">
               Próximo
             </span>
           </Link>
