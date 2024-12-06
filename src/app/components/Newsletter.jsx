@@ -18,18 +18,6 @@ const Newsletter = () => {
       >
         Suscríbete
       </Link>
-      <button onClick={ async () => {
-
-        const res = await fetch("/api/send", {
-          method: "POST",
-        })
-
-        const data = await res.json();
-        console.log(data);
-        
-      }} className="flex items-center gap-2 text-white font-normal text-sm md:text-base bg-black w-fit px-4 py-2 rounded-md hover:bg-gray-800 transition-all">
-        Email prueba
-      </button>
     </section>
   );
 };
