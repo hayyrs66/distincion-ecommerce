@@ -148,19 +148,18 @@ export default function Page({ params: paramsPromise }) {
       {/* Galería de Imágenes */}
       <div className="w-full h-full grid grid-cols-1 sm:grid-cols-2 gap-1 order-2 lg:order-1">
         {selectedPantalon.imagenes[0][selectedColor].map((imagen, index) => (
-          <figure key={index} className="relative w-full">
-            <div className="aspect-[3/4]">
-              <ImageSkeleton
-                src={imagen}
-                alt={`${selectedPantalon.nombre} ${selectedColor} imagen ${
-                  index + 1
-                }`}
-                fill
-                style={{ objectFit: "cover" }}
-                placeholder="empty"
-                priority
-              />
-            </div>
+          <figure
+            key={index}
+            className="relative w-full aspect-[3/4] min-h-[500px]"
+          >
+            <ImageSkeleton
+              src={imagen}
+              alt={`${selectedPantalon.nombre} ${selectedColor} imagen ${
+                index + 1
+              }`}
+              priority
+              fill
+            />
           </figure>
         ))}
       </div>
