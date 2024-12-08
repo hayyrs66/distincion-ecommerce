@@ -10,15 +10,12 @@ export async function POST(request: Request) {
   try {
     const { formData, cartItems, total } = await request.json();
 
-    // Datos principales
     const name = `${formData.nombre} ${formData.apellidos}`;
-    const phone = formData.telefono; // Teléfono de contacto
+    const phone = formData.telefono;
     const email = formData.email;
 
-    // Dirección de envío
     const address = `${formData.direccion}, ${formData.municipio}`;
 
-    // Dirección de facturación
     const billingAddress = formData.usarDireccionEnvioComoFacturacion
       ? null
       : {
@@ -39,17 +36,16 @@ export async function POST(request: Request) {
       total,
     });
 
-    // Enviar correo
     const { data, error } = await resend.emails.send({
       from: "Distinción <onboarding@resend.dev>",
-      to: ["rayrtsx@proton.me"],
+      to: ["contacto@distincion.shop"],
       subject: "Compra en línea",
       react: EmailTemplate({
         name,
         phone,
         email,
         address,
-        billingAddress, // Pasamos la dirección de facturación al EmailTemplate
+        billingAddress,
         cartItems,
         total,
       }),
