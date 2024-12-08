@@ -4,6 +4,7 @@ import { useCart } from "../context/CartProvider";
 import CartItem from "./CartItem";
 import Close from "./icons/Close";
 import BagLogo from "./icons/BagLogo";
+import Link from "next/link";
 
 const Cart = ({ openCart, closeCart }) => {
   const { cartItems, updateQuantity, removeFromCart } = useCart();
@@ -25,19 +26,24 @@ const Cart = ({ openCart, closeCart }) => {
       } flex flex-col`}
     >
       {/* Header */}
-      <div className="w-full flex pt-6 px-6 justify-between items-center">
-        <div className="flex gap-2 items-center">
-          <h4 className="text-xl font-normal tracking-tight">
-            Carrito de compra
-          </h4>
+      <div className="w-full flex flex-col pt-6 px-6">
+        <div className="flex w-full justify-between items-center">
+          <div className="flex gap-2 items-center">
+            <h4 className="text-xl font-normal tracking-tight">
+              Carrito de compra
+            </h4>
+          </div>
+          <button
+            onClick={closeCart}
+            aria-label="Cerrar carrito"
+            className="px-2 py-1 rounded-md hover:text-black/70 transition-colors"
+          >
+            Cerrar
+          </button>
         </div>
-        <button
-          onClick={closeCart}
-          aria-label="Cerrar carrito"
-          className="px-2 py-1 rounded-md hover:text-black/70 transition-colors"
-        >
-          Cerrar
-        </button>
+        <div className="w-full mt-3 mb-3">
+          <div className="w-full border-b" />
+        </div>
       </div>
 
       {/* Item Count */}
@@ -48,7 +54,7 @@ const Cart = ({ openCart, closeCart }) => {
       </div>
 
       {/* Cart Items */}
-      <div className="flex flex-col flex-1 border-b border-b-black/20 mt-2 overflow-auto">
+      <div className="flex flex-col flex-1 border-b border-b-black/20 overflow-auto">
         {cartItems.map((item) => (
           <CartItem
             key={`${item.id}-${item.size}-${item.color}`}
@@ -66,7 +72,7 @@ const Cart = ({ openCart, closeCart }) => {
 
       {/* Footer */}
       <div className="w-full bg-white p-4">
-        <div className="flex justify-between items-center w-full mb-2">
+        {/* <div className="flex justify-between items-center w-full mb-2">
           <p className="font-light text-sm">Subtotal</p>
           <p className="font-semibold text-sm text-black/80">GTQ{subtotal.toFixed(2)}</p>
         </div>
@@ -79,11 +85,14 @@ const Cart = ({ openCart, closeCart }) => {
         <div className="flex justify-between items-center w-full mb-4">
           <p className="font-light text-sm">Total</p>
           <p className="font-semibold text-sm text-black/80">GTQ{total.toFixed(2)}</p>
-        </div>
-        <div className="w-full flex justify-center items-center">
-          <button className="bg-black text-white font-light px-4 py-2 hover:bg-black/80 transition-colors rounded-md">
+        </div> */}
+        <div className="w-full flex justify-start items-center">
+          <Link
+            href={"/compra"}
+            className="bg-black text-white font-light text-base px-4 py-1 hover:bg-black/80 transition-colors rounded-sm"
+          >
             Comprar
-          </button>
+          </Link>
         </div>
       </div>
     </section>
