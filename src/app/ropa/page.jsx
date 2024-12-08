@@ -65,7 +65,7 @@ function PantalonesPage() {
             <button
               key={categoria}
               onClick={() => handleCategoriaClick(categoria)}
-              className={`px-4 py-2 rounded-sm text-sm font-medium ${
+              className={`px-4 py-2 rounded-sm text-sm font-medium transition-colors ${
                 categoriaSeleccionada.toLowerCase() === categoria.toLowerCase()
                   ? "bg-black text-white"
                   : "bg-gray-100 text-black"
