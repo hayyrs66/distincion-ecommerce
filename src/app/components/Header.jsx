@@ -51,7 +51,7 @@ const Header = () => {
           isScrolled
             ? "bg-white text-black"
             : isHomePage
-            ? "bg-[#838383] text-white"
+            ? "bg-transparent text-white"
             : "bg-white text-black"
         }`}
       >

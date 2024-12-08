@@ -23,7 +23,7 @@ const Hero = () => {
           </h2>
         </div>
         <Image
-          src="https://utfs.io/f/Kd9w79vOPqydQNVQQL9YcoPR0brp9HtyEFAwD3djin4ZBsfS"
+          src="https://utfs.io/f/Kd9w79vOPqyd8cY6sbUB01NaS3tClvQjIHkeVcwJ7DY5nLMh"
           alt="Modelo con pantalón cargo de tienda Distinción Guatemala"
           width={450}
           height={450}
