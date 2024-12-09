@@ -33,6 +33,10 @@ const Header = () => {
       return;
     }
 
+    if(isHomePage && window.scrollY == 0){
+      setIsScrolled(false);
+    }
+
     const changeHeader = () => {
       if (window.scrollY >= window.innerHeight) setIsScrolled(true);
       else setIsScrolled(false);
@@ -47,7 +51,7 @@ const Header = () => {
   return (
     <>
       <header
-        className={`w-full fixed top-0 left-0 py-2 z-10 px-6 flex justify-between items-center transition-colors ${
+        className={`w-full fixed top-0 left-0 py-1 z-10 px-6 flex justify-between items-center transition-colors ${
           isScrolled
             ? "bg-white text-black"
             : isHomePage

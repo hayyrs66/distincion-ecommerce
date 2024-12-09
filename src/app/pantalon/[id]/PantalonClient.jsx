@@ -14,11 +14,12 @@ export default function ProductClient({ product, defaultColor }) {
   const colorKeys = Object.keys(product.imagenes);
   const images = product.imagenes[selectedColor];
 
+  // Preload images
   useEffect(() => {
     colorKeys.forEach((color) => {
       product.imagenes[color].forEach((imgUrl) => {
         const img = new window.Image();
-        img.src = imgUrl; // Esto fuerza al navegador a descargar y almacenar la imagen en caché
+        img.src = imgUrl;
       });
     });
   }, [colorKeys, product.imagenes]);
@@ -61,6 +62,10 @@ export default function ProductClient({ product, defaultColor }) {
       description: "El producto fue añadido a la canasta",
     });
   };
+  const availableSizes =
+    product.tipo === "semirecto"
+      ? ["28", "30", "32", "34"]
+      : ["28", "30", "32", "34", "36"];
 
   return (
     <section className="w-full h-full min-h-screen grid grid-cols-1 lg:grid-cols-[60%_40%]">
@@ -77,7 +82,6 @@ export default function ProductClient({ product, defaultColor }) {
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               priority={index === 0}
-              unoptimized
             />
           </figure>
         ))}
@@ -100,7 +104,7 @@ export default function ProductClient({ product, defaultColor }) {
           <div className="mt-5">
             <fieldset className="flex gap-2">
               <legend className="mb-2">Selecciona la talla</legend>
-              {["28", "30", "32", "34", "36"].map((size) => (
+              {availableSizes.map((size) => (
                 <label key={size}>
                   <input
                     className="appearance-none relative bg-white w-9 h-9 rounded-full border border-gray-600 checked:text-white checked:bg-black cursor-pointer
