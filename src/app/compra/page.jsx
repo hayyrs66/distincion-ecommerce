@@ -9,7 +9,7 @@ export default function CompraPage() {
   const { cartItems, updateQuantity, removeFromCart } = useCart();
   const [formData, setFormData] = useState({
     email: "",
-    country: "Guatemala", // Fijo, no editable
+    country: "Guatemala",
     nombre: "",
     apellidos: "",
     nitOrCf: "",
@@ -17,7 +17,7 @@ export default function CompraPage() {
     municipio: "",
     envio: "Dentro de la capital",
 
-    telefono: "", // Nuevo campo para Teléfono de Contacto
+    telefono: "",
 
     // Datos de pago
     numeroTarjeta: "",
@@ -35,7 +35,7 @@ export default function CompraPage() {
     facturacionMunicipio: "",
     facturacionDepartamento: "",
     facturacionCodigoPostal: "",
-    facturacionTelefono: "", // Asegúrate de tener este campo
+    facturacionTelefono: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -132,12 +132,12 @@ export default function CompraPage() {
     setIsSubmitting(true);
 
     try {
-      console.log("Enviando datos:", { formData, cartItems, total }); // Verifica los datos
+      console.log("Enviando datos:", { formData, cartItems, total });
 
       const response = await fetch("/api/send", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ formData, cartItems, total }), // Enviar formData completo
+        body: JSON.stringify({ formData, cartItems, total }),
       });
 
       if (!response.ok) {

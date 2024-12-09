@@ -1,4 +1,4 @@
-import { EmailTemplate } from "@/app/components/email-template";
+import { PurchaseReceiptEmail } from "@/app/components/email-template";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
@@ -36,9 +36,9 @@ export async function POST(request: Request) {
 
     const { data, error } = await resend.emails.send({
       from: "Distinción <onboarding@resend.dev>",
-      to: ["contacto@distincion.shop"],
+      to: ["zxnacontacto@gmail.com"],
       subject: "Compra en línea",
-      react: EmailTemplate({
+      react: PurchaseReceiptEmail({
         name,
         phone,
         email,
@@ -57,6 +57,9 @@ export async function POST(request: Request) {
     return NextResponse.json(data);
   } catch (error) {
     console.error("Error en el servidor:", error);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }
