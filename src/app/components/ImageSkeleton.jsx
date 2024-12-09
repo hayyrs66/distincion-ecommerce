@@ -6,7 +6,7 @@ import Image from "next/image";
 export default function ImageSkeleton({
   src,
   alt,
-  priority = false,
+  priority = true,
   ...props
 }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -20,6 +20,7 @@ export default function ImageSkeleton({
         src={src}
         alt={alt}
         priority={priority}
+        unoptimized
         onLoad={() => setIsLoading(false)}
         className={`transition-opacity duration-500 ${
           isLoading ? "opacity-0" : "opacity-100"
