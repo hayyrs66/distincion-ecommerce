@@ -58,7 +58,7 @@ function PantalonesPage() {
 
   return (
     <section className="w-full h-full mt-20 pb-24 px-6">
-      <div className="container">
+      <div className="w-full">
         {/* Categorías horizontales */}
         <div className="flex overflow-x-auto py-4 border-b border-gray-200 gap-2">
           {categorias.map((categoria) => (
