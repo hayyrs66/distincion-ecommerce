@@ -1,6 +1,5 @@
 "use client";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCart } from "@/app/context/CartProvider";
 import { useToast } from "@/hooks/use-toast";
 import ImageSkeleton from "@/app/components/ImageSkeleton";
@@ -14,6 +13,15 @@ export default function ProductClient({ product, defaultColor }) {
 
   const colorKeys = Object.keys(product.imagenes);
   const images = product.imagenes[selectedColor];
+
+  useEffect(() => {
+    colorKeys.forEach((color) => {
+      product.imagenes[color].forEach((imgUrl) => {
+        const img = new window.Image();
+        img.src = imgUrl; // Esto fuerza al navegador a descargar y almacenar la imagen en caché
+      });
+    });
+  }, [colorKeys, product.imagenes]);
 
   function getColorHex(color) {
     const colorMap = {
@@ -69,6 +77,7 @@ export default function ProductClient({ product, defaultColor }) {
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               priority={index === 0}
+              unoptimized
             />
           </figure>
         ))}
