@@ -1,8 +1,14 @@
-// ImageSkeleton.jsx
+"use client";
+
 import { useState } from "react";
 import Image from "next/image";
 
-export default function ImageSkeleton({ src, alt, priority, ...props }) {
+export default function ImageSkeleton({
+  src,
+  alt,
+  priority = false,
+  ...props
+}) {
   const [isLoading, setIsLoading] = useState(true);
 
   return (
