@@ -2,8 +2,6 @@
 import { useEffect } from "react";
 import { useCart } from "../context/CartProvider";
 import CartItem from "./CartItem";
-import Close from "./icons/Close";
-import BagLogo from "./icons/BagLogo";
 import Link from "next/link";
 
 const Cart = ({ openCart, closeCart }) => {
