@@ -26,7 +26,7 @@ function PantalonesPage() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setShowScrollTopButton(window.scrollY > 300); // Muestra el botón si el scroll supera 300px
+      setShowScrollTopButton(window.scrollY > 300);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -75,7 +75,6 @@ function PantalonesPage() {
             </button>
           ))}
         </div>
-
         {/* Pantalones */}
         <div className="mt-8">
           <h3 className="text-2xl font-normal tracking-tight mb-4">
@@ -114,8 +113,6 @@ function PantalonesPage() {
           </div>
         </div>
       </div>
-
-      {/* Botón de Subir */}
       {showScrollTopButton && (
         <button
           onClick={scrollToTop}
