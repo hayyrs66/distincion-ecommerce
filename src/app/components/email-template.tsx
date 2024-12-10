@@ -153,7 +153,15 @@ export const PurchaseReceiptEmail: React.FC<EmailTemplateProps> = ({
               Instrucciones para realizar tu pago:
             </Text>
             <Text style={instructionsText}>
-              Realiza el depósito o transferencia correspondiente.
+              Realiza el depósito o transferencia correspondiente a la siguiente
+              cuenta:
+            </Text>
+            <Text style={instructionsText}>
+              <strong>Cuenta:</strong> 285-12-07556
+              <br />
+              <strong>Tipo:</strong> Cuenta de ahorro
+              <br />
+              <strong>Nombre:</strong> Oscar Daniel Xiquin Cumes
             </Text>
             <Text style={instructionsText}>
               Envía el comprobante de pago junto con tu número de pedido a:
@@ -262,6 +270,7 @@ const totalText = {
   fontWeight: "bold" as const,
   color: "#444444",
 };
+
 const instructionsContainer = {
   backgroundColor: "#f5f5f5",
   borderRadius: "8px",
