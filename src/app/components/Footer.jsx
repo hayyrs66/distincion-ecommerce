@@ -68,7 +68,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <Link
-                    href="/reembolso"
+                    href="/politicas"
                     className="text-white font-normal text-base hover:text-rose-300 transition-colors"
                   >
                     Políticas de reembolso
@@ -95,7 +95,8 @@ const Footer = () => {
               <ul className="space-y-1">
                 <li>
                   <Link
-                    href="#"
+                    target="_blank"
+                    href="https://www.facebook.com/share/KqGvUA2NBkLPRSc3/?mibextid=LQQJ4d"
                     className="text-white font-normal text-base hover:text-rose-300 transition-colors"
                   >
                     Facebook
@@ -103,7 +104,8 @@ const Footer = () => {
                 </li>
                 <li>
                   <Link
-                    href="#"
+                    target="_blank"
+                    href="https://www.instagram.com/distincion_gt/"
                     className="text-white font-normal text-base hover:text-rose-300 transition-colors"
                   >
                     Instagram
