@@ -23,15 +23,6 @@ const MostSold = () => {
                   className="object-cover"
                 />
               </div>
-              <div className="w-full p-2">
-                <span className="text-base text-black tracking-tight">
-                  Pantalón Cargo Gris
-                </span>
-                <p className="text-sm font-semibold">
-                  GTQ200{" "}
-                  <span className="line-through text-gray-600">GTQ230</span>
-                </p>
-              </div>
             </div>
           </Link>
 
@@ -46,15 +37,6 @@ const MostSold = () => {
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover"
                 />
-              </div>
-              <div className="w-full p-2">
-                <span className="text-base text-black tracking-tight">
-                  Pantalón Jogger Beige
-                </span>
-                <p className="text-sm font-semibold">
-                  GTQ170{" "}
-                  <span className="line-through text-gray-600">GTQ230</span>
-                </p>
               </div>
             </div>
           </Link>
