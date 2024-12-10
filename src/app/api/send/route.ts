@@ -5,7 +5,9 @@ import { Resend } from "resend";
 const resend = new Resend(process.env.RESEND_API_KEY);
 const generateOrderId = () => {
   const timePart = Date.now().toString().slice(-5);
-  const randomPart = Math.floor(Math.random() * 100).toString().padStart(2, "0");
+  const randomPart = Math.floor(Math.random() * 100)
+    .toString()
+    .padStart(2, "0");
   return `#E${timePart}${randomPart}`;
 };
 
@@ -24,21 +26,22 @@ export async function POST(request: Request) {
 
     const address = `${formData.direccion}, ${formData.municipio}, ${formData.departamento}`;
 
-    const billingAddress = nitOrCf === "CF" ? null : (
-      formData.usarDireccionEnvioComoFacturacion
+    const billingAddress =
+      nitOrCf === "CF"
         ? null
-        : {
-            name: `${formData.facturacionNombre} ${formData.facturacionApellidos}`,
-            nitOrCf: formData.facturacionNitOrCf,
-            address: `${formData.facturacionDireccion}, ${formData.facturacionMunicipio}, ${formData.facturacionDepartamento}`,
-            postalCode: formData.facturacionCodigoPostal,
-            phone: formData.facturacionTelefono,
-          }
-    );
+        : formData.usarDireccionEnvioComoFacturacion
+          ? null
+          : {
+              name: `${formData.facturacionNombre} ${formData.facturacionApellidos}`,
+              nitOrCf: formData.facturacionNitOrCf,
+              address: `${formData.facturacionDireccion}, ${formData.facturacionMunicipio}, ${formData.facturacionDepartamento}`,
+              postalCode: formData.facturacionCodigoPostal,
+              phone: formData.facturacionTelefono,
+            };
 
     const { data, error } = await resend.emails.send({
       from: "Distinción <onboarding@distincion.shop>",
-      to: [email, "zxnacontacto@gmail.com"],
+      to: [email, "contacto@distincion.shop"],
       subject: "Compra en línea",
       react: PurchaseReceiptEmail({
         name,
