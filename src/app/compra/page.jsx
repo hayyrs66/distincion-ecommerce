@@ -1,12 +1,45 @@
-// src/app/components/CompraPage.tsx
-
 "use client";
 import { useState } from "react";
 import { useCart } from "../context/CartProvider";
 import CartItem from "../components/CartItem";
+import { useToast } from "@/hooks/use-toast";
+
+const DEPARTAMENTOS = [
+  { nombre: "Alta Verapaz", municipios: ["Cobán", "Chisec", "San Pedro Carchá", "Tactic", "Tamahú", "Tucurú", "Santa María Cahabón", "San Juan Chamelco", "Santa Cruz Verapaz", "San Cristóbal Verapaz", "Fray Bartolomé de las Casas", "Santa Catalina La Tinta", "Raxruhá"] },
+  { nombre: "Baja Verapaz", municipios: ["Salamá", "Cubulco", "Rabinal", "San Jerónimo", "Purulhá", "Granados"] },
+  { nombre: "Chimaltenango", municipios: ["Chimaltenango", "San José Poaquil", "San Martín Jilotepeque", "Comalapa", "Santa Apolonia", "Tecpán", "Patzún", "Pochuta", "Patzicía", "Acatenango", "Yepocapa", "San Andrés Itzapa", "Parramos", "Zaragoza", "El Tejar"] },
+  { nombre: "Chiquimula", municipios: ["Chiquimula", "Jocotán", "Esquipulas", "Camotán", "Concepción Las Minas", "San Juan Ermita", "Olopa", "Quezaltepeque", "San Jacinto", "San José La Arada"] },
+  { nombre: "Petén", municipios: ["Flores", "San José", "San Benito", "San Andrés", "La Libertad", "San Francisco", "Santa Ana", "Dolores", "San Luis", "Poptún", "Melchor de Mencos"] },
+  { nombre: "El Progreso", municipios: ["Guastatoya", "Morazán", "San Agustín Acasaguastlán", "San Cristóbal Acasaguastlán", "El Jícaro", "Sansare", "Sanarate", "San Antonio La Paz"] },
+  { nombre: "Quiché", municipios: ["Santa Cruz del Quiché", "Chichicastenango", "Patzité", "San Antonio Ilotenango", "San Pedro Jocopilas", "Cunén", "Sacapulas", "San Bartolomé Jocotenango", "San Juan Cotzal", "Joyabaj", "Nebaj", "Chajul", "Canillá", "Chicamán", "Uspantán", "Pachalum"] },
+  { nombre: "Escuintla", municipios: ["Escuintla", "Guanagazapa", "Iztapa", "La Democracia", "La Gomera", "Masagua", "Nueva Concepción", "Palín", "San José", "Siquinalá", "Tiquisate"] },
+  { nombre: "Guatemala", municipios: ["Guatemala", "Santa Catarina Pinula", "San José Pinula", "San José del Golfo", "Palencia", "Chinautla", "San Pedro Ayampuc", "Mixco", "San Pedro Sacatepéquez", "San Juan Sacatepéquez", "San Raymundo", "Chuarrancho", "Fraijanes", "Amatitlán", "Villa Nueva", "Villa Canales", "Petapa"] },
+  { nombre: "Huehuetenango", municipios: ["Huehuetenango", "Aguacatán", "Chiantla", "Colotenango", "Concepción", "Cuilco", "Jacaltenango", "La Democracia", "La Libertad", "Malacatancito", "Nentón", "San Pedro Necta", "San Juan Atitán", "San Gaspar Ixchil", "Santiago Chimaltenango", "Santa Ana Huista", "Santa Bárbara", "Santa Cruz Barillas", "San Rafael La Independencia", "San Miguel Acatán", "San Sebastián Huehuetenango", "Tectitán", "Todos Santos Cuchumatán", "San Juan Ixcoy", "Soloma", "Santa Eulalia", "San Mateo Ixtatán", "San Sebastián Coatán", "San Rafael Petzal", "Colotenango", "San Miguel Acatán", "Santa Cruz Barillas"] },
+  { nombre: "Izabal", municipios: ["Puerto Barrios", "Livingston", "El Estor", "Morales", "Los Amates"] },
+  { nombre: "Jalapa", municipios: ["Jalapa", "Mataquescuintla", "Monjas", "San Carlos Alzatate", "San Luis Jilotepeque", "San Manuel Chaparrón", "Santa María Xalapán"] },
+  { nombre: "Jutiapa", municipios: ["Jutiapa", "El Progreso", "Santa Catarina Mita", "Agua Blanca", "Asunción Mita", "Yupiltepeque", "Atescatempa", "Jerez", "El Adelanto", "Zapotitlán", "Comapa", "Jalpatagua", "Conguaco", "Moyuta", "Pasaco", "San José Acatempa", "Quesada"] },
+  { nombre: "Quetzaltenango", municipios: ["Quetzaltenango", "Salcajá", "Olintepeque", "San Carlos Sija", "Sibilia", "Cabricán", "Cajolá", "San Miguel Sigüilá", "Ostuncalco", "Concepción Chiquirichapa", "San Martín Sacatepéquez", "Almolonga", "Cantel", "Huitán", "Zunil", "Colomba", "San Francisco La Unión", "El Palmar", "Coatepeque", "Génova", "Flores Costa Cuca", "La Esperanza", "Palestina de los Altos"] },
+  { nombre: "Retalhuleu", municipios: ["Retalhuleu", "San Sebastián", "Santa Cruz Muluá", "San Martín Zapotitlán", "San Felipe", "San Andrés Villa Seca", "Champerico", "Nuevo San Carlos", "El Asintal"] },
+  { nombre: "Sacatepéquez", municipios: ["Antigua Guatemala", "Jocotenango", "Pastores", "Sumpango", "Santo Domingo Xenacoj", "Santiago Sacatepéquez", "San Bartolomé Milpas Altas", "San Lucas Sacatepéquez", "Santa Lucía Milpas Altas", "Magdalena Milpas Altas", "Santa María de Jesús", "Ciudad Vieja", "San Miguel Dueñas", "Alotenango", "San Antonio Aguas Calientes", "Santa Catarina Barahona"] },
+  { nombre: "San Marcos", municipios: ["San Marcos", "San Pedro Sacatepéquez", "San Antonio Sacatepéquez", "Comitancillo", "Concepción Tutuapa", "Tacaná", "Sibinal", "Tajumulco", "Tejutla", "San Rafael Pie de la Cuesta", "Nuevo Progreso", "El Tumbador", "El Rodeo", "Malacatán", "Catarina", "Ayutla (Tecún Umán)", "Ocos", "San Pablo", "El Quetzal", "La Reforma", "Pajapita", "Ixchiguán", "San José Ojetenam", "San Cristóbal Cucho", "Sipacapa", "Esquipulas Palo Gordo", "Río Blanco", "San Lorenzo"] },
+  { nombre: "Santa Rosa", municipios: ["Cuilapa", "Barberena", "Santa Rosa de Lima", "Casillas", "San Rafael Las Flores", "Oratorio", "San Juan Tecuaco", "Chiquimulilla", "Taxisco", "Santa María Ixhuatán", "Guazacapán", "Santa Cruz Naranjo", "Pueblo Nuevo Viñas", "Nueva Santa Rosa"] },
+  { nombre: "Sololá", municipios: ["Sololá", "San José Chacayá", "Santa María Visitación", "Santa Lucía Utatlán", "Nahualá", "Santa Catarina Ixtahuacán", "Santa Clara La Laguna", "Concepción", "San Andrés Semetabaj", "Panajachel", "Santa Catarina Palopó", "San Antonio Palopó", "San Lucas Tolimán", "Santa Cruz La Laguna", "San Pablo La Laguna", "San Marcos La Laguna", "San Juan La Laguna", "San Pedro La Laguna", "Santiago Atitlán"] },
+  { nombre: "Suchitepéquez", municipios: ["Mazatenango", "Cuyotenango", "San Francisco Zapotitlán", "San Bernardino", "San José El Ídolo", "Santo Domingo Suchitepéquez", "San Lorenzo", "Samayac", "San Pablo Jocopilas", "San Antonio Suchitepéquez", "San Miguel Panán", "San Gabriel", "Chicacao", "Patulul", "Santa Bárbara", "San Juan Bautista", "Santo Tomás La Unión", "Zunilito", "Pueblo Nuevo", "Río Bravo"] },
+  { nombre: "Totonicapán", municipios: ["Totonicapán", "San Cristóbal Totonicapán", "San Francisco El Alto", "San Andrés Xecul", "Momostenango", "Santa María Chiquimula", "Santa Lucía La Reforma", "San Bartolo Aguas Calientes"] },
+  { nombre: "Zacapa", municipios: ["Zacapa", "Estanzuela", "Río Hondo", "Gualán", "Teculután", "Usumatlán", "Cabañas", "San Diego", "La Unión", "Huité"] },
+];
+
+function getMunicipios(departamentoSeleccionado) {
+  const depto = DEPARTAMENTOS.find(
+    (d) => d.nombre === departamentoSeleccionado
+  );
+  return depto ? depto.municipios : [];
+}
 
 export default function CompraPage() {
   const { cartItems, updateQuantity, removeFromCart } = useCart();
+  const { toast } = useToast();
+
   const [formData, setFormData] = useState({
     email: "",
     country: "Guatemala",
@@ -14,34 +47,30 @@ export default function CompraPage() {
     apellidos: "",
     nitOrCf: "",
     direccion: "",
+    departamento: "Guatemala",
     municipio: "",
     envio: "Dentro de la capital",
-
     telefono: "",
-
-    // Datos de pago
     numeroTarjeta: "",
     fechaVencimiento: "",
     codigoSeguridad: "",
     nombreTitular: "",
     usarDireccionEnvioComoFacturacion: true,
-
-    // Datos facturación (solo si no se usa dirección de envío)
     facturacionPais: "Guatemala",
     facturacionNombre: "",
     facturacionApellidos: "",
     facturacionNitOrCf: "",
     facturacionDireccion: "",
+    facturacionDepartamento: "Guatemala",
     facturacionMunicipio: "",
-    facturacionDepartamento: "",
     facturacionCodigoPostal: "",
     facturacionTelefono: "",
+    metodoPago: "transferencia",
   });
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Cálculos del carrito
   const subtotal = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
@@ -49,10 +78,11 @@ export default function CompraPage() {
   const shippingCost = 0;
   const total = subtotal + shippingCost;
 
+  const nitIsCF = formData.nitOrCf.trim().toUpperCase() === "CF";
+
   const validateForm = () => {
     const newErrors = {};
 
-    // Validaciones mínimas
     if (!formData.email || formData.email.length < 5) {
       newErrors.email = "Correo electrónico inválido.";
     }
@@ -75,22 +105,23 @@ export default function CompraPage() {
       newErrors.municipio = "El municipio no puede estar vacío.";
     }
 
-    // Pago
-    if (!formData.numeroTarjeta.trim()) {
-      newErrors.numeroTarjeta = "Número de tarjeta inválido.";
-    }
-    if (!formData.fechaVencimiento.trim()) {
-      newErrors.fechaVencimiento = "Fecha de vencimiento requerida.";
-    }
-    if (!formData.codigoSeguridad.trim()) {
-      newErrors.codigoSeguridad = "Código de seguridad requerido.";
-    }
-    if (!formData.nombreTitular.trim()) {
-      newErrors.nombreTitular = "Nombre del titular requerido.";
+    if (formData.metodoPago === "tarjeta") {
+      if (!formData.numeroTarjeta.trim()) {
+        newErrors.numeroTarjeta = "Número de tarjeta inválido.";
+      }
+      if (!formData.fechaVencimiento.trim()) {
+        newErrors.fechaVencimiento = "Fecha de vencimiento requerida.";
+      }
+      if (!formData.codigoSeguridad.trim()) {
+        newErrors.codigoSeguridad = "Código de seguridad requerido.";
+      }
+      if (!formData.nombreTitular.trim()) {
+        newErrors.nombreTitular = "Nombre del titular requerido.";
+      }
     }
 
-    // Facturación si no se usa dirección de envío
-    if (!formData.usarDireccionEnvioComoFacturacion) {
+    // Si el NIT es "CF", no se valida información de facturación adicional.
+    if (!nitIsCF && !formData.usarDireccionEnvioComoFacturacion) {
       if (!formData.facturacionNombre.trim()) {
         newErrors.facturacionNombre = "El nombre de facturación es requerido.";
       }
@@ -132,8 +163,6 @@ export default function CompraPage() {
     setIsSubmitting(true);
 
     try {
-      console.log("Enviando datos:", { formData, cartItems, total });
-
       const response = await fetch("/api/send", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -142,14 +171,14 @@ export default function CompraPage() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.log(errorData)
+        console.log(errorData);
         throw new Error(errorData.error || "Error al enviar la solicitud");
       }
 
-      const data = await response.json();
+      await response.json();
       alert("Información enviada exitosamente.");
     } catch (error) {
-      console.error("Error al enviar:", );
+      console.error("Error al enviar:");
       alert("Hubo un problema al enviar la información.");
     } finally {
       setIsSubmitting(false);
@@ -163,6 +192,42 @@ export default function CompraPage() {
       [name]: type === "checkbox" ? checked : value,
     }));
   };
+
+  const handlePaymentMethodChange = (method) => {
+    if (method === "tarjeta") {
+      toast({
+        title: "Método no disponible",
+        description: "Este método estará disponible pronto.",
+      });
+      return;
+    }
+
+    setFormData((prev) => ({
+      ...prev,
+      metodoPago: method,
+    }));
+  };
+
+  const handleDepartamentoChange = (e) => {
+    const nuevoDepartamento = e.target.value;
+    setFormData((prev) => ({
+      ...prev,
+      departamento: nuevoDepartamento,
+      municipio: "",
+    }));
+  };
+
+  const handleFacturacionDepartamentoChange = (e) => {
+    const nuevoDepartamento = e.target.value;
+    setFormData((prev) => ({
+      ...prev,
+      facturacionDepartamento: nuevoDepartamento,
+      facturacionMunicipio: "",
+    }));
+  };
+
+  const municipiosEnvio = getMunicipios(formData.departamento);
+  const municipiosFacturacion = getMunicipios(formData.facturacionDepartamento);
 
   return (
     <section className="w-full min-h-screen pt-24 pb-24">
@@ -199,7 +264,6 @@ export default function CompraPage() {
                   )}
                 </div>
 
-                {/* Nuevo Campo: Teléfono de Contacto */}
                 <div>
                   <label
                     htmlFor="telefono"
@@ -303,7 +367,7 @@ export default function CompraPage() {
                     type="text"
                     id="nitOrCf"
                     name="nitOrCf"
-                    placeholder="1234567-8"
+                    placeholder="1234567-8 ó CF"
                     value={formData.nitOrCf}
                     onChange={handleInputChange}
                     className={`w-full border border-gray-400/50 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 ${
@@ -328,7 +392,7 @@ export default function CompraPage() {
                     id="direccion"
                     name="direccion"
                     rows={2}
-                    placeholder="Calle Principal #123, Guatemala Ciudad"
+                    placeholder="Calle Principal #123"
                     value={formData.direccion}
                     onChange={handleInputChange}
                     className={`w-full border border-gray-400/50 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none ${
@@ -346,16 +410,45 @@ export default function CompraPage() {
 
                 <div>
                   <label
+                    htmlFor="departamento"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Departamento
+                  </label>
+                  <select
+                    id="departamento"
+                    name="departamento"
+                    value={formData.departamento}
+                    onChange={handleDepartamentoChange}
+                    className={`w-full border border-gray-400/50 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 ${
+                      errors.departamento
+                        ? "border-red-500 focus:ring-red-500"
+                        : ""
+                    }`}
+                  >
+                    {DEPARTAMENTOS.map((d) => (
+                      <option key={d.nombre} value={d.nombre}>
+                        {d.nombre}
+                      </option>
+                    ))}
+                  </select>
+                  {errors.departamento && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.departamento}
+                    </p>
+                  )}
+                </div>
+
+                <div>
+                  <label
                     htmlFor="municipio"
                     className="block text-sm font-medium text-gray-700 mb-1"
                   >
                     Municipio
                   </label>
-                  <input
-                    type="text"
+                  <select
                     id="municipio"
                     name="municipio"
-                    placeholder="Zona 14"
                     value={formData.municipio}
                     onChange={handleInputChange}
                     className={`w-full border border-gray-400/50 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 ${
@@ -363,7 +456,14 @@ export default function CompraPage() {
                         ? "border-red-500 focus:ring-red-500"
                         : ""
                     }`}
-                  />
+                  >
+                    <option value="">Seleccione un municipio</option>
+                    {municipiosEnvio.map((m) => (
+                      <option key={m} value={m}>
+                        {m}
+                      </option>
+                    ))}
+                  </select>
                   {errors.municipio && (
                     <p className="text-red-500 text-sm mt-1">
                       {errors.municipio}
@@ -399,115 +499,58 @@ export default function CompraPage() {
             {/* Sección de Pago */}
             <div>
               <h4 className="text-xl font-semibold mb-6 text-gray-900">Pago</h4>
-              <form className="flex flex-col gap-6 mb-8">
-                <div>
-                  <label
-                    htmlFor="numeroTarjeta"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
-                    Número de la tarjeta
-                  </label>
-                  <input
-                    type="text"
-                    id="numeroTarjeta"
-                    name="numeroTarjeta"
-                    placeholder="4111 1111 1111 1111"
-                    value={formData.numeroTarjeta}
-                    onChange={handleInputChange}
-                    className={`w-full border border-gray-400/50 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 ${
-                      errors.numeroTarjeta
-                        ? "border-red-500 focus:ring-red-500"
-                        : ""
-                    }`}
-                  />
-                  {errors.numeroTarjeta && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.numeroTarjeta}
-                    </p>
-                  )}
-                </div>
 
-                <div>
-                  <label
-                    htmlFor="fechaVencimiento"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
-                    Fecha de vencimiento (MM/AA)
-                  </label>
-                  <input
-                    type="text"
-                    id="fechaVencimiento"
-                    name="fechaVencimiento"
-                    placeholder="12/25"
-                    value={formData.fechaVencimiento}
-                    onChange={handleInputChange}
-                    className={`w-full border border-gray-400/50 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 ${
-                      errors.fechaVencimiento
-                        ? "border-red-500 focus:ring-red-500"
-                        : ""
-                    }`}
-                  />
-                  {errors.fechaVencimiento && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.fechaVencimiento}
-                    </p>
-                  )}
+              {/* Opciones de pago */}
+              <div className="mb-6">
+                <p className="mb-2 text-sm text-gray-700">Método de pago</p>
+                <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      id="metodoTransferencia"
+                      name="metodoPago"
+                      value="transferencia"
+                      checked={formData.metodoPago === "transferencia"}
+                      onChange={() => handlePaymentMethodChange("transferencia")}
+                    />
+                    <label
+                      htmlFor="metodoTransferencia"
+                      className="text-sm text-gray-700"
+                    >
+                      Transferencia
+                    </label>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      id="metodoTarjeta"
+                      name="metodoPago"
+                      value="tarjeta"
+                      checked={formData.metodoPago === "tarjeta"}
+                      onChange={() => handlePaymentMethodChange("tarjeta")}
+                      disabled
+                    />
+                    <label
+                      htmlFor="metodoTarjeta"
+                      className="text-sm text-gray-700"
+                    >
+                      Tarjeta (Próximamente)
+                    </label>
+                  </div>
                 </div>
+              </div>
 
-                <div>
-                  <label
-                    htmlFor="codigoSeguridad"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
-                    Código de seguridad
-                  </label>
-                  <input
-                    type="text"
-                    id="codigoSeguridad"
-                    name="codigoSeguridad"
-                    placeholder="123"
-                    value={formData.codigoSeguridad}
-                    onChange={handleInputChange}
-                    className={`w-full border border-gray-400/50 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 ${
-                      errors.codigoSeguridad
-                        ? "border-red-500 focus:ring-red-500"
-                        : ""
-                    }`}
-                  />
-                  {errors.codigoSeguridad && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.codigoSeguridad}
-                    </p>
-                  )}
+              {formData.metodoPago === "transferencia" && (
+                <div className="mb-8 bg-gray-50 p-4 rounded-md border border-gray-200">
+                  <p className="text-sm text-gray-700">
+                    Una vez que confirmes tu pedido, recibirás un correo con las
+                    instrucciones para realizar tu pago por transferencia.
+                  </p>
                 </div>
+              )}
 
-                <div>
-                  <label
-                    htmlFor="nombreTitular"
-                    className="block text-sm font-medium text-gray-700 mb-1"
-                  >
-                    Nombre del titular
-                  </label>
-                  <input
-                    type="text"
-                    id="nombreTitular"
-                    name="nombreTitular"
-                    placeholder="Juan Pérez"
-                    value={formData.nombreTitular}
-                    onChange={handleInputChange}
-                    className={`w-full border border-gray-400/50 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 ${
-                      errors.nombreTitular
-                        ? "border-red-500 focus:ring-red-500"
-                        : ""
-                    }`}
-                  />
-                  {errors.nombreTitular && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.nombreTitular}
-                    </p>
-                  )}
-                </div>
-
+              {/* Si el NIT es CF, no mostrar el checkbox ni el formulario de facturación */}
+              {!nitIsCF && (
                 <div className="flex items-center gap-2">
                   <input
                     type="checkbox"
@@ -523,10 +566,9 @@ export default function CompraPage() {
                     Usar la dirección de envío como facturación
                   </label>
                 </div>
-              </form>
+              )}
 
-              {/* Sección desplegable de Dirección de facturación si no está chequeado */}
-              {!formData.usarDireccionEnvioComoFacturacion && (
+              {!nitIsCF && !formData.usarDireccionEnvioComoFacturacion && (
                 <div className="bg-gray-50 p-4 rounded-md border border-gray-200 mb-8">
                   <h5 className="text-lg font-semibold mb-4 text-gray-900">
                     Dirección de Facturación
@@ -659,16 +701,45 @@ export default function CompraPage() {
 
                     <div>
                       <label
+                        htmlFor="facturacionDepartamento"
+                        className="block text-sm font-medium text-gray-700 mb-1"
+                      >
+                        Departamento
+                      </label>
+                      <select
+                        id="facturacionDepartamento"
+                        name="facturacionDepartamento"
+                        value={formData.facturacionDepartamento}
+                        onChange={handleFacturacionDepartamentoChange}
+                        className={`w-full border border-gray-400/50 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 ${
+                          errors.facturacionDepartamento
+                            ? "border-red-500 focus:ring-red-500"
+                            : ""
+                        }`}
+                      >
+                        {DEPARTAMENTOS.map((d) => (
+                          <option key={d.nombre} value={d.nombre}>
+                            {d.nombre}
+                          </option>
+                        ))}
+                      </select>
+                      {errors.facturacionDepartamento && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {errors.facturacionDepartamento}
+                        </p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label
                         htmlFor="facturacionMunicipio"
                         className="block text-sm font-medium text-gray-700 mb-1"
                       >
                         Municipio
                       </label>
-                      <input
-                        type="text"
+                      <select
                         id="facturacionMunicipio"
                         name="facturacionMunicipio"
-                        placeholder="Zona 14"
                         value={formData.facturacionMunicipio}
                         onChange={handleInputChange}
                         className={`w-full border border-gray-400/50 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 ${
@@ -676,37 +747,17 @@ export default function CompraPage() {
                             ? "border-red-500 focus:ring-red-500"
                             : ""
                         }`}
-                      />
+                      >
+                        <option value="">Seleccione un municipio</option>
+                        {municipiosFacturacion.map((m) => (
+                          <option key={m} value={m}>
+                            {m}
+                          </option>
+                        ))}
+                      </select>
                       {errors.facturacionMunicipio && (
                         <p className="text-red-500 text-sm mt-1">
                           {errors.facturacionMunicipio}
-                        </p>
-                      )}
-                    </div>
-
-                    <div>
-                      <label
-                        htmlFor="facturacionDepartamento"
-                        className="block text-sm font-medium text-gray-700 mb-1"
-                      >
-                        Departamento
-                      </label>
-                      <input
-                        type="text"
-                        id="facturacionDepartamento"
-                        name="facturacionDepartamento"
-                        placeholder="Guatemala"
-                        value={formData.facturacionDepartamento}
-                        onChange={handleInputChange}
-                        className={`w-full border border-gray-400/50 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 ${
-                          errors.facturacionDepartamento
-                            ? "border-red-500 focus:ring-red-500"
-                            : ""
-                        }`}
-                      />
-                      {errors.facturacionDepartamento && (
-                        <p className="text-red-500 text-sm mt-1">
-                          {errors.facturacionDepartamento}
                         </p>
                       )}
                     </div>
