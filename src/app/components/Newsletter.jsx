@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const Newsletter = () => {
   return (
-    <section className="w-full flex flex-col gap-6 justify-center items-center px-6 py-16 mt-24 bg-gray-100">
+    <section className="w-full flex flex-col gap-6 justify-center items-center px-6 py-16 bg-[#37e173]">
       <h4 className="text-black text-3xl md:text-4xl font-medium text-center">
         Suscríbete a Nuestra Newsletter
       </h4>
