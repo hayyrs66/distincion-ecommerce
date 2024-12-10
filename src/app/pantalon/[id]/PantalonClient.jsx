@@ -4,6 +4,7 @@ import { useCart } from "@/app/context/CartProvider";
 import { useToast } from "@/hooks/use-toast";
 import ImageSkeleton from "@/app/components/ImageSkeleton";
 
+
 export default function ProductClient({ product, defaultColor }) {
   const { addToCart } = useCart();
   const { toast } = useToast();
