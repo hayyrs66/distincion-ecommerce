@@ -142,14 +142,14 @@ export default function CompraPage() {
 
       if (!response.ok) {
         const errorData = await response.json();
+        console.log(errorData)
         throw new Error(errorData.error || "Error al enviar la solicitud");
       }
 
       const data = await response.json();
-      console.log("Respuesta del servidor:", data);
       alert("Información enviada exitosamente.");
     } catch (error) {
-      console.error("Error al enviar:", error);
+      console.error("Error al enviar:", );
       alert("Hubo un problema al enviar la información.");
     } finally {
       setIsSubmitting(false);

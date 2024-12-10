@@ -36,7 +36,7 @@ export async function POST(request: Request) {
 
     const { data, error } = await resend.emails.send({
       from: "Distinción <onboarding@resend.dev>",
-      to: ["zxnacontacto@gmail.com"],
+      to: ["contacto@distincion.shop"],
       subject: "Compra en línea",
       react: PurchaseReceiptEmail({
         name,
