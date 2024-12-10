@@ -36,7 +36,7 @@ export default function CompraPage() {
     direccion: "",
     departamento: "Guatemala",
     municipio: "",
-    envio: "Dentro de la capital",
+    envio: "Toda Guatemala",
     telefono: "",
     numeroTarjeta: "",
     fechaVencimiento: "",
@@ -466,8 +466,8 @@ export default function CompraPage() {
                       type="radio"
                       id="envioCapital"
                       name="envio"
-                      value="Dentro de la capital"
-                      checked={formData.envio === "Dentro de la capital"}
+                      value="Toda Guatemala"
+                      checked={formData.envio === "Toda Guatemala"}
                       onChange={handleInputChange}
                       disabled
                     />
@@ -475,7 +475,7 @@ export default function CompraPage() {
                       htmlFor="envioCapital"
                       className="text-sm text-gray-700"
                     >
-                      Dentro de la capital
+                      Toda Guatemala
                     </label>
                   </div>
                 </div>
