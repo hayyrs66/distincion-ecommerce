@@ -36,7 +36,6 @@ const Header = () => {
       const currentScroll = window.scrollY;
       const halfPageHeight = document.body.scrollHeight / 2;
 
-      // Lógica del fondo del header
       if (!isHomePage) {
         setIsScrolled(true);
       } else {
@@ -47,7 +46,6 @@ const Header = () => {
         }
       }
 
-      // Lógica para ocultar el header al llegar a la mitad de la página
       if (currentScroll > halfPageHeight) {
         setHideHeader(true);
       } else {
@@ -56,7 +54,7 @@ const Header = () => {
     };
 
     window.addEventListener("scroll", handleScroll);
-    handleScroll(); // Llamar al montar para establecer el estado inicial
+    handleScroll();
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -66,11 +64,11 @@ const Header = () => {
     <>
       <header
         className={`
-          w-full fixed top-0 left-0 py-2 z-20 px-6 flex justify-between items-center 
-          transform-gpu transition-all duration-300 ease-in-out
-          ${hideHeader ? "-translate-y-full" : "translate-y-0"}
-          ${isScrolled ? "bg-white text-black" : isHomePage ? "bg-transparent text-white" : "bg-white text-black"}
-        `}
+    w-full fixed top-0 left-0 py-2 z-20 px-6 flex items-center 
+    transform-gpu transition-all duration-300 ease-in-out
+    ${hideHeader ? "-translate-y-full" : "translate-y-0"}
+    ${isScrolled ? "bg-white text-black" : isHomePage ? "bg-transparent text-white" : "bg-white text-black"}
+  `}
       >
         {/* Enlaces para pantallas medianas y grandes */}
         <div className="hidden md:flex flex-grow basis-0 items-center justify-start gap-4">
@@ -108,8 +106,8 @@ const Header = () => {
           </button>
         </div>
 
-        {/* Logo */}
-        <div className="flex gap-2">
+        {/* Logo Centrado */}
+        <div className="flex justify-center items-center">
           <Link
             href="/"
             className={`${rubik.className} text-3xl tracking-wider font-extralight hover:opacity-80 transition-opacity`}
@@ -118,26 +116,26 @@ const Header = () => {
           </Link>
         </div>
 
-        {/* Botón de menú para pantallas pequeñas */}
-        <div className="flex md:hidden items-center mr-2">
-          <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            {isMenuOpen ? (
-              <X
-                color={`${isScrolled ? "#000" : "#fff"}`}
-                className="transition-colors w-6 h-6"
-              />
-            ) : (
-              <Menu
-                color={`${isScrolled ? "#000" : "#fff"}`}
-                className="transition-colors w-8 h-8"
-              />
-            )}
-          </button>
-        </div>
-
         {/* Carrito y usuario */}
-        <div className="flex md:flex-grow justify-end basis-0 items-center gap-4">
+        <div className="flex flex-grow basis-0 justify-end items-center gap-4">
           <div className="flex items-center gap-2 h-full">
+            {/* Botón de menú para pantallas pequeñas */}
+            <div className="flex md:hidden items-center mr-2">
+              <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                {isMenuOpen ? (
+                  <X
+                    color={`${isScrolled ? "#000" : "#fff"}`}
+                    className="transition-colors w-6 h-6"
+                  />
+                ) : (
+                  <Menu
+                    color={`${isScrolled ? "#000" : "#fff"}`}
+                    className="transition-colors w-8 h-8"
+                  />
+                )}
+              </button>
+            </div>
+
             <button
               onClick={toggleCart}
               className="relative items-center font-normal text-base"
@@ -208,7 +206,7 @@ const Header = () => {
             Inicio
           </Link>
           <Link
-            href="/ropa"
+            href="/ropa"name
             className="text-2xl font-normal mb-4 hover:opacity-80 transition-opacity"
             onClick={() => setIsMenuOpen(false)}
           >
