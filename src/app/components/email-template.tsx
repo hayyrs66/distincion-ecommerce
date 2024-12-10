@@ -56,7 +56,7 @@ export const PurchaseReceiptEmail: React.FC<EmailTemplateProps> = ({
           <Row>
             <Column>
               <Img
-                src="/black_logo.png"
+                src="https://utfs.io/f/Kd9w79vOPqydVkkgI01ikFwdY7eISDh3av0unCcMyo64ZzUQ"
                 alt="Distinción Guatemala Logo"
                 width="42"
                 height="42"
