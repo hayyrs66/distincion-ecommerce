@@ -3,6 +3,11 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+const generateOrderId = () => {
+  const timePart = Date.now().toString().slice(-5);
+  const randomPart = Math.floor(Math.random() * 100).toString().padStart(2, "0");
+  return `#E${timePart}${randomPart}`;
+};
 
 export async function POST(request: Request) {
   try {
@@ -11,32 +16,29 @@ export async function POST(request: Request) {
     const name = `${formData.nombre} ${formData.apellidos}`;
     const phone = formData.telefono;
     const email = formData.email;
+    const nitOrCf = formData.nitOrCf.trim().toUpperCase();
 
-    const address = `${formData.direccion}, ${formData.municipio}`;
+    const paymentMethod = formData.metodoPago;
 
-    const billingAddress = formData.usarDireccionEnvioComoFacturacion
-      ? null
-      : {
-          name: `${formData.facturacionNombre} ${formData.facturacionApellidos}`,
-          nitOrCf: formData.facturacionNitOrCf,
-          address: `${formData.facturacionDireccion}, ${formData.facturacionMunicipio}, ${formData.facturacionDepartamento}`,
-          postalCode: formData.facturacionCodigoPostal,
-          phone: formData.facturacionTelefono,
-        };
+    const orderId = generateOrderId();
 
-    console.log({
-      name,
-      phone,
-      email,
-      address,
-      billingAddress,
-      cartItems,
-      total,
-    });
+    const address = `${formData.direccion}, ${formData.municipio}, ${formData.departamento}`;
+
+    const billingAddress = nitOrCf === "CF" ? null : (
+      formData.usarDireccionEnvioComoFacturacion
+        ? null
+        : {
+            name: `${formData.facturacionNombre} ${formData.facturacionApellidos}`,
+            nitOrCf: formData.facturacionNitOrCf,
+            address: `${formData.facturacionDireccion}, ${formData.facturacionMunicipio}, ${formData.facturacionDepartamento}`,
+            postalCode: formData.facturacionCodigoPostal,
+            phone: formData.facturacionTelefono,
+          }
+    );
 
     const { data, error } = await resend.emails.send({
       from: "Distinción <onboarding@distincion.shop>",
-      to: ["zxnacontacto@gmail.com"],
+      to: [email, "zxnacontacto@gmail.com"],
       subject: "Compra en línea",
       react: PurchaseReceiptEmail({
         name,
@@ -46,12 +48,17 @@ export async function POST(request: Request) {
         billingAddress,
         cartItems,
         total,
+        orderId,
+        paymentMethod,
       }),
     });
+    console.log("Metodo de pago:", paymentMethod);
 
     if (error) {
       console.error("Error al enviar el correo:", error);
       return NextResponse.json({ error }, { status: 500 });
+    } else {
+      console.log("Correo enviado exitosamente:", data, paymentMethod);
     }
 
     return NextResponse.json(data);
