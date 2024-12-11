@@ -20,7 +20,7 @@ export default function Page({ params }) {
           (pantalon) => pantalon.tipo.toLowerCase() === categoria.toLowerCase()
         );
 
-  const categorias = ["Todo", "cargo", "semirecto", "ajustado", "jogger"];
+  const categorias = ["todo", "cargo", "semirecto", "ajustado", "jogger"];
 
   return (
     <section className="w-full h-full mt-20 pb-24 px-6">
@@ -29,7 +29,7 @@ export default function Page({ params }) {
         <div className="flex overflow-x-auto py-4 border-b border-gray-200 gap-2">
           {categorias.map((cat) => {
             const isSelected = categoria.toLowerCase() === cat.toLowerCase();
-            const href = cat.toLowerCase() === "todo" ? "/ropa" : `/ropa/${cat.toLowerCase()}`;
+            const href = `/ropa/${cat.toLowerCase()}`;
             return (
               <Link key={cat} href={href}>
                 <button
