@@ -19,7 +19,7 @@ const Hero = () => {
           Cole<span className="text_outline">cción</span>
         </h1>
         <Link
-          href="/ropa"
+          href="/ropa/todo"
           className=" px-6 py-3 bg-none border border-white text-white font-semibold rounded hover:bg-white/20 transition-colors"
         >
           Explorar ahora

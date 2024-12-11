@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const GalleryItem = ({ src, alt, title }) => (
-  <Link href={`/ropa?categoria=${title.toLowerCase()}`} legacyBehavior>
+  <Link href={`/ropa/${title.toLowerCase()}`} legacyBehavior>
     <div className="relative cursor-pointer w-full h-[390px] group">
       {/* Imagen con hover */}
       <Image
