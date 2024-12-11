@@ -29,7 +29,7 @@ const Newsletter = () => {
               id="email"
               type="email"
               aria-label="Correo electrónico"
-              className="outline-none bg-transparent placeholder-white/80 flex-1 min-w-0"
+              className="outline-none bg-transparent text-white placeholder-white/80 flex-1 min-w-0"
               placeholder="Email..."
               required
             />
