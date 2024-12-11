@@ -79,13 +79,13 @@ const Header = () => {
             Inicio
           </Link>
           <Link
-            href="/ropa"
+            href="/ropa/todo"
             className="font-normal tracking-tight text-base leading-[1rem] hover:opacity-80 transition-opacity"
           >
             Pantalones
           </Link>
           <Link
-            href="/ropa"
+            href="#correo"
             className="font-normal tracking-tight text-base leading-[1rem] hover:opacity-80 transition-opacity"
           >
             Contacto
@@ -206,14 +206,14 @@ const Header = () => {
             Inicio
           </Link>
           <Link
-            href="/ropa"name
+            href="/ropa/todo"name
             className="text-2xl font-normal mb-4 hover:opacity-80 transition-opacity"
             onClick={() => setIsMenuOpen(false)}
           >
             Pantalones
           </Link>
           <Link
-            href="/ropa"
+            href="/ropa/todo"
             className="text-2xl font-normal mb-4 hover:opacity-80 transition-opacity"
             onClick={() => setIsMenuOpen(false)}
           >
