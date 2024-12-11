@@ -10,8 +10,8 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function Page({ params }) {
-  const { categoria } = params;
+export default async function Page({ params }) {
+  const { categoria } = await params;
 
   const pantalonesFiltrados =
     categoria.toLowerCase() === "todo"
@@ -34,7 +34,9 @@ export default function Page({ params }) {
               <Link key={cat} href={href}>
                 <button
                   className={`px-4 py-2 rounded-sm text-sm font-medium ${
-                    isSelected ? "bg-black text-white" : "bg-gray-100 text-black"
+                    isSelected
+                      ? "bg-black text-white"
+                      : "bg-gray-100 text-black"
                   }`}
                 >
                   {cat.charAt(0).toUpperCase() + cat.slice(1)}
@@ -46,7 +48,9 @@ export default function Page({ params }) {
 
         {/* Pantalones */}
         <div className="mt-8">
-          <h3 className="text-2xl font-normal tracking-tight mb-4">Pantalones</h3>
+          <h3 className="text-2xl font-normal tracking-tight mb-4">
+            Pantalones
+          </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {pantalonesFiltrados.length > 0 ? (
               pantalonesFiltrados.map((pantalon) => (
