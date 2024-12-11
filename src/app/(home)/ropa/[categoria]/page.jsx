@@ -1,22 +1,23 @@
-import Link from "next/link";
-import { pantalones_general } from "../../constants";
+import { pantalones_general } from "../../../constants";
 import ImageSkeleton from "@components/ImageSkeleton";
+import Link from "next/link";
 import ScrollToTopButton from "@components/ScrollToTopButton";
 
-export default function Page({ searchParams }) {
-  const { categoria } = searchParams;
-  const categoriaValida = categoria && pantalones_general.some(
-    (pantalon) => pantalon.tipo.toLowerCase() === categoria.toLowerCase()
-  );
+export async function generateStaticParams() {
+  const categorias = ["todo", "cargo", "semirecto", "ajustado", "jogger"];
+  return categorias.map((categoria) => ({
+    categoria,
+  }));
+}
 
-  const categoriaSeleccionada = categoriaValida ? categoria : "Todo";
+export default function Page({ params }) {
+  const { categoria } = params;
 
   const pantalonesFiltrados =
-    categoriaSeleccionada.toLowerCase() === "todo"
+    categoria.toLowerCase() === "todo"
       ? pantalones_general
       : pantalones_general.filter(
-          (pantalon) =>
-            pantalon.tipo.toLowerCase() === categoriaSeleccionada.toLowerCase()
+          (pantalon) => pantalon.tipo.toLowerCase() === categoria.toLowerCase()
         );
 
   const categorias = ["Todo", "cargo", "semirecto", "ajustado", "jogger"];
@@ -27,8 +28,8 @@ export default function Page({ searchParams }) {
         {/* Categorías horizontales */}
         <div className="flex overflow-x-auto py-4 border-b border-gray-200 gap-2">
           {categorias.map((cat) => {
-            const isSelected = categoriaSeleccionada.toLowerCase() === cat.toLowerCase();
-            const href = cat.toLowerCase() === "todo" ? "/ropa" : `/ropa?categoria=${cat.toLowerCase()}`;
+            const isSelected = categoria.toLowerCase() === cat.toLowerCase();
+            const href = cat.toLowerCase() === "todo" ? "/ropa" : `/ropa/${cat.toLowerCase()}`;
             return (
               <Link key={cat} href={href}>
                 <button
