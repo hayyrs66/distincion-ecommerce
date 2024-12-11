@@ -129,6 +129,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <Link
+                    id="correo"
                     href="mailto:contacto@distincion.shop"
                     className="text-transparent bg-clip-text bg-gradient-to-r from-rose-200 to-purple-200 hover:from-rose-300 hover:to-purple-300 transition-colors font-normal text-base"
                   >
