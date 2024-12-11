@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const MostSold = () => {
   return (
-    <section className="w-full px-6 py-12 bg-[#fffaee]">
+    <section className="w-full px-6 py-12">
       <span className="text-black/70 tracking-wider font-medium text-lg uppercase">
         Compra
       </span>
@@ -43,12 +43,12 @@ const MostSold = () => {
         </div>
 
         {/* Contenedor para contenido adicional */}
-        <div className="flex flex-col h-auto lg:h-[calc(100%-100px)] order-1 lg:order-2 px-4 lg:px-8 items-center lg:items-center rounded-sm mt-8 lg:mt-0">
+        <div className="flex flex-col h-full p-8 order-1 lg:order-2 px-4 lg:px-8 items-center lg:items-center rounded-sm mt-8 lg:mt-0">
           <div className="flex flex-col justify-center items-center">
             <h3 className="font-medium text-[#877c59] tracking-tighter text-3xl md:text-8xl mb-4 text-center text-balance">
               Descuentos Diciembre
             </h3>
-            <p className="leading-[1.5] max-w-lg text-black/80 text-pretty font-normal text-base md:text-lg mb-8 text-center">
+            <p className="leading-[1.5] max-w-lg text-black/80 text-pretty font-normal tbext-base md:text-lg mb-8 text-center">
               Nuestros pantalones más vendidos tienen descuentos especiales por
               tiempo limitado. Renueva tu estilo con calidad y precio increíble.
               ¡No lo dejes pasar!
