@@ -15,7 +15,6 @@ import {
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
 
-
 function getMunicipios(departamentoSeleccionado) {
   const depto = DEPARTAMENTOS.find(
     (d) => d.nombre === departamentoSeleccionado
@@ -878,11 +877,11 @@ export default function CompraPage() {
         </div>
       </div>
 
-       {/* AlertDialog para mostrar al finalizar */}
-       <AlertDialog open={openAlert} onOpenChange={setOpenAlert}>
+      {/* AlertDialog para mostrar al finalizar */}
+      <AlertDialog open={openAlert} onOpenChange={setOpenAlert}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Pedido recibido</AlertDialogTitle>
+            <AlertDialogTitle className="text-white">Pedido recibido</AlertDialogTitle>
             <AlertDialogDescription>
               Tu compra se ha confirmado con éxito. Recibirás las instrucciones
               de pago por correo electrónico.
@@ -895,7 +894,6 @@ export default function CompraPage() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-
     </section>
   );
 }
