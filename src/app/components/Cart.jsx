@@ -71,6 +71,7 @@ const Cart = ({ openCart, closeCart }) => {
       <div className="w-full bg-white p-4">
         <div className="w-full flex justify-start items-center">
           <Link
+          onClick={closeCart}
             href={"/compra"}
             className="bg-black text-white font-normal text-base px-4 py-1 hover:bg-black/80 transition-colors rounded-sm"
           >
