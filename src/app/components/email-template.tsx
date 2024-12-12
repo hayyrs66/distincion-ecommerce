@@ -154,7 +154,7 @@ export const PurchaseReceiptEmail: React.FC<EmailTemplateProps> = ({
             </Text>
             <Text style={instructionsText}>
               Realiza el depósito o transferencia correspondiente a la siguiente
-              cuenta:
+              cuenta de <strong>BANCO INDUSTRIAL</strong>:
             </Text>
             <Text style={instructionsText}>
               <strong>Cuenta:</strong> 285-12-07556
