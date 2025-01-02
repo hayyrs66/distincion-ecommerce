@@ -919,19 +919,6 @@ export default function CompraPage() {
               >
                 Ordenar Pedido
               </button>
-              <button
-                onClick={() => {
-                  fetch("https://api.ipify.org?format=json", {
-                    method: "GET",
-                  })
-                    .then((response) => response.json())
-                    .then((data) => {
-                      console.log(data)
-                    });
-                }}
-              >
-                whats my ip
-              </button>
             </div>
           </div>
 
