@@ -178,15 +178,8 @@ export default function CompraPage() {
     }));
   };
 
+  // Remove the early return if method === "tarjeta", so the user can actually select 'tarjeta'.
   const handlePaymentMethodChange = (method) => {
-    if (method === "tarjeta") {
-      toast({
-        title: "Método no disponible",
-        description: "Este método estará disponible pronto.",
-      });
-      return;
-    }
-
     setFormData((prev) => ({
       ...prev,
       metodoPago: method,
@@ -508,6 +501,7 @@ export default function CompraPage() {
                     </label>
                   </div>
                   <div className="flex items-center gap-2">
+                    {/* Enabled Tarjeta option and removed "Próximamente" */}
                     <input
                       type="radio"
                       id="metodoTarjeta"
@@ -515,13 +509,12 @@ export default function CompraPage() {
                       value="tarjeta"
                       checked={formData.metodoPago === "tarjeta"}
                       onChange={() => handlePaymentMethodChange("tarjeta")}
-                      disabled
                     />
                     <label
                       htmlFor="metodoTarjeta"
                       className="text-sm text-gray-700"
                     >
-                      Tarjeta (Próximamente)
+                      Tarjeta
                     </label>
                   </div>
                 </div>
@@ -533,6 +526,124 @@ export default function CompraPage() {
                     Una vez que confirmes tu pedido, recibirás un correo con las
                     instrucciones para realizar tu pago por transferencia.
                   </p>
+                </div>
+              )}
+
+              {/* Campos adicionales si elige Tarjeta */}
+              {formData.metodoPago === "tarjeta" && (
+                <div className="mb-8 bg-gray-50 p-4 rounded-md border border-gray-200">
+                  <h5 className="text-lg font-semibold mb-4 text-gray-900">
+                    Detalles de la Tarjeta
+                  </h5>
+                  <div className="flex flex-col gap-6">
+                    <div>
+                      <label
+                        htmlFor="numeroTarjeta"
+                        className="block text-sm font-medium text-gray-700 mb-1"
+                      >
+                        Número de tarjeta
+                      </label>
+                      <input
+                        type="text"
+                        id="numeroTarjeta"
+                        name="numeroTarjeta"
+                        placeholder="1234 5678 9012 3456"
+                        value={formData.numeroTarjeta}
+                        onChange={handleInputChange}
+                        className={`w-full border border-gray-400/50 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 ${
+                          errors.numeroTarjeta
+                            ? "border-red-500 focus:ring-red-500"
+                            : ""
+                        }`}
+                      />
+                      {errors.numeroTarjeta && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {errors.numeroTarjeta}
+                        </p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="fechaVencimiento"
+                        className="block text-sm font-medium text-gray-700 mb-1"
+                      >
+                        Fecha de vencimiento (MM/YY)
+                      </label>
+                      <input
+                        type="text"
+                        id="fechaVencimiento"
+                        name="fechaVencimiento"
+                        placeholder="01/27"
+                        value={formData.fechaVencimiento}
+                        onChange={handleInputChange}
+                        className={`w-full border border-gray-400/50 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 ${
+                          errors.fechaVencimiento
+                            ? "border-red-500 focus:ring-red-500"
+                            : ""
+                        }`}
+                      />
+                      {errors.fechaVencimiento && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {errors.fechaVencimiento}
+                        </p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="codigoSeguridad"
+                        className="block text-sm font-medium text-gray-700 mb-1"
+                      >
+                        Código de seguridad (CVV)
+                      </label>
+                      <input
+                        type="text"
+                        id="codigoSeguridad"
+                        name="codigoSeguridad"
+                        placeholder="123"
+                        value={formData.codigoSeguridad}
+                        onChange={handleInputChange}
+                        className={`w-full border border-gray-400/50 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 ${
+                          errors.codigoSeguridad
+                            ? "border-red-500 focus:ring-red-500"
+                            : ""
+                        }`}
+                      />
+                      {errors.codigoSeguridad && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {errors.codigoSeguridad}
+                        </p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="nombreTitular"
+                        className="block text-sm font-medium text-gray-700 mb-1"
+                      >
+                        Nombre del titular
+                      </label>
+                      <input
+                        type="text"
+                        id="nombreTitular"
+                        name="nombreTitular"
+                        placeholder="Nombre tal como aparece en la tarjeta"
+                        value={formData.nombreTitular}
+                        onChange={handleInputChange}
+                        className={`w-full border border-gray-400/50 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 ${
+                          errors.nombreTitular
+                            ? "border-red-500 focus:ring-red-500"
+                            : ""
+                        }`}
+                      />
+                      {errors.nombreTitular && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {errors.nombreTitular}
+                        </p>
+                      )}
+                    </div>
+                  </div>
                 </div>
               )}
 
@@ -881,7 +992,9 @@ export default function CompraPage() {
       <AlertDialog open={openAlert} onOpenChange={setOpenAlert}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle className="text-white">Pedido recibido</AlertDialogTitle>
+            <AlertDialogTitle className="text-white">
+              Pedido recibido
+            </AlertDialogTitle>
             <AlertDialogDescription>
               Tu compra se ha confirmado con éxito. Recibirás las instrucciones
               de pago por correo electrónico.
