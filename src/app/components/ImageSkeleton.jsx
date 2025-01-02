@@ -1,8 +1,14 @@
-// ImageSkeleton.jsx
+"use client";
+
 import { useState } from "react";
 import Image from "next/image";
 
-export default function ImageSkeleton({ src, alt, priority, ...props }) {
+export default function ImageSkeleton({
+  src,
+  alt,
+  priority = true,
+  ...props
+}) {
   const [isLoading, setIsLoading] = useState(true);
 
   return (
@@ -14,6 +20,7 @@ export default function ImageSkeleton({ src, alt, priority, ...props }) {
         src={src}
         alt={alt}
         priority={priority}
+        unoptimized
         onLoad={() => setIsLoading(false)}
         className={`transition-opacity duration-500 ${
           isLoading ? "opacity-0" : "opacity-100"

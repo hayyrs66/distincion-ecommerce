@@ -1,9 +1,6 @@
 "use client";
-import { useEffect } from "react";
 import { useCart } from "../context/CartProvider";
 import CartItem from "./CartItem";
-import Close from "./icons/Close";
-import BagLogo from "./icons/BagLogo";
 import Link from "next/link";
 
 const Cart = ({ openCart, closeCart }) => {
@@ -21,7 +18,7 @@ const Cart = ({ openCart, closeCart }) => {
 
   return (
     <section
-      className={`fixed top-0 right-0 w-[400px] h-full drop-shadow-xl bg-white z-20 transition-transform duration-300 ${
+      className={`fixed top-0 right-0 sm:w-full md:w-[400px] w-full h-full drop-shadow-xl bg-white z-20 transition-transform duration-300 ${
         openCart ? "translate-x-0" : "translate-x-full"
       } flex flex-col`}
     >
@@ -72,24 +69,11 @@ const Cart = ({ openCart, closeCart }) => {
 
       {/* Footer */}
       <div className="w-full bg-white p-4">
-        {/* <div className="flex justify-between items-center w-full mb-2">
-          <p className="font-light text-sm">Subtotal</p>
-          <p className="font-semibold text-sm text-black/80">GTQ{subtotal.toFixed(2)}</p>
-        </div>
-        <div className="flex justify-between items-center w-full mb-2">
-          <p className="font-light text-sm">Costo envío</p>
-          <p className="font-semibold text-sm text-black/80">
-            GTQ{shippingCost.toFixed(2)}
-          </p>
-        </div>
-        <div className="flex justify-between items-center w-full mb-4">
-          <p className="font-light text-sm">Total</p>
-          <p className="font-semibold text-sm text-black/80">GTQ{total.toFixed(2)}</p>
-        </div> */}
         <div className="w-full flex justify-start items-center">
           <Link
+          onClick={closeCart}
             href={"/compra"}
-            className="bg-black text-white font-light text-base px-4 py-1 hover:bg-black/80 transition-colors rounded-sm"
+            className="bg-black text-white font-normal text-base px-4 py-1 hover:bg-black/80 transition-colors rounded-sm"
           >
             Comprar
           </Link>

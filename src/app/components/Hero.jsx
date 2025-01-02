@@ -1,5 +1,5 @@
 import localFont from "next/font/local";
-import Image from "next/image";
+import Link from "next/link";
 
 const leMurmure = localFont({
   src: "../fonts/lemurmure/LeMurmure-Regular.woff2",
@@ -7,28 +7,23 @@ const leMurmure = localFont({
 
 const Hero = () => {
   return (
-    <section className="relative w-full flex justify-center items-center h-[calc(100vh_+_5rem)] bg-[#838383]">
-      {/* Contenido principal */}
-      <div className="w-full relative h-full flex justify-center items-center">
-        <div className="w-full h-full flex flex-wrap justify-center items-center">
-          <h2
-            className={`${leMurmure.className} tracking-tight font-medium text-white text-clamp_hero`}
-          >
-            Cole
-          </h2>
-          <h2
-            className={`${leMurmure.className} tracking-tight font-medium text-white text_outline text-clamp_hero`}
-          >
-            cción
-          </h2>
-        </div>
-        <Image
-          src="https://utfs.io/f/Kd9w79vOPqyd8cY6sbUB01NaS3tClvQjIHkeVcwJ7DY5nLMh"
-          alt="Modelo con pantalón cargo de tienda Distinción Guatemala"
-          width={450}
-          height={450}
-          className="absolute bottom-0"
-        />
+    <section
+      className="relative w-full h-screen flex justify-center items-center bg-[url(https://utfs.io/f/Kd9w79vOPqyddrSaXJZo6MsEXhKCTaLuPBgyUr0kzjbdQO8G)] bg-no-repeat bg-center bg-cover"
+      role="banner"
+      aria-label="Colección"
+    >
+      <div className="flex flex-col justify-center items-center mt-12">
+        <h1
+          className={`${leMurmure.className} tracking-tight font-medium text-white text-clamp_hero leading-none`}
+        >
+          Cole<span className="text_outline">cción</span>
+        </h1>
+        <Link
+          href="/ropa/todo"
+          className=" px-6 py-3 bg-none border border-white text-white font-semibold rounded hover:bg-white/20 transition-colors"
+        >
+          Explorar ahora
+        </Link>
       </div>
     </section>
   );

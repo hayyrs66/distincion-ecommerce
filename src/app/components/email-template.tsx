@@ -1,31 +1,45 @@
+import {
+  Body,
+  Container,
+  Column,
+  Head,
+  Hr,
+  Html,
+  Img,
+  Preview,
+  Row,
+  Section,
+  Text,
+} from "@react-email/components";
 import * as React from "react";
 
 interface EmailTemplateProps {
-  name: string; // Nombre del comprador
-  phone: string; // Teléfono de contacto
-  email: string; // Correo electrónico del comprador
-  address: string; // Dirección de envío
-  billingAddress?: { // Dirección de facturación (opcional)
-    name: string; // Nombre completo para facturación
-    nitOrCf: string; // NIT o CF para facturación
-    address: string; // Dirección para facturación
-    postalCode?: string; // Código postal para facturación (opcional)
-    phone: string; // Teléfono para facturación
+  name: string;
+  phone: string;
+  email: string;
+  address: string;
+  billingAddress?: {
+    name: string;
+    nitOrCf: string;
+    address: string;
+    postalCode?: string;
+    phone: string;
   };
   cartItems: Array<{
-    id: string; // ID del producto
-    name: string; // Nombre del producto
-    size: string; // Talla del producto
-    color: string; // Color del producto
-    price: number; // Precio unitario del producto
-    quantity: number; // Cantidad del producto
-    image: string; // URL de la imagen del producto
+    id: string;
+    name: string;
+    size: string;
+    color: string;
+    price: number;
+    quantity: number;
+    image: string;
   }>;
-  total: number; // Total de la compra
+  total: number;
+  orderId: string;
+  paymentMethod: string;
 }
 
-
-export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
+export const PurchaseReceiptEmail: React.FC<EmailTemplateProps> = ({
   name,
   phone,
   email,
@@ -33,111 +47,256 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
   billingAddress,
   cartItems,
   total,
-}) => {
-  const accentColor = "#5850EC";
-  const textColor = "#333";
-  const bgColor = "#f7f8fa";
-  const cardBgColor = "#ffffff";
+  orderId,
+  paymentMethod,
+}) => (
+  <Html>
+    <Head />
+    <Preview>Recibo de tu compra</Preview>
+    <Body style={main}>
+      <Container style={container}>
+        <Section>
+          <Row>
+            <Column>
+              <Img
+                src="https://utfs.io/f/Kd9w79vOPqydVkkgI01ikFwdY7eISDh3av0unCcMyo64ZzUQ"
+                alt="Distinción Guatemala Logo"
+                width="42"
+                height="42"
+              />
+            </Column>
+            <Column align="right" style={tableCell}>
+              <Text style={heading}>Recibo</Text>
+            </Column>
+          </Row>
+        </Section>
 
-  return (
-    <div style={{ fontFamily: "Arial, sans-serif", backgroundColor: bgColor, padding: "40px 0" }}>
-      <table
-        align="center"
-        style={{
-          width: "100%",
-          maxWidth: "600px",
-          backgroundColor: cardBgColor,
-          borderRadius: "8px",
-          boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
-          overflow: "hidden",
-        }}
-      >
-        <thead>
-          <tr>
-            <th style={{ textAlign: "center", padding: "30px 20px", backgroundColor: accentColor }}>
-              <h1 style={{ margin: 0, fontSize: "24px", color: "#ffffff", fontWeight: "normal" }}>
-                Resumen de tu Compra
-              </h1>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {/* Datos de Envío */}
-          <tr>
-            <td style={{ padding: "30px 20px" }}>
-              <h2 style={{ color: accentColor, fontSize: "18px", margin: "0 0 15px 0", fontWeight: "normal" }}>
-                Datos de Envío
-              </h2>
-              <div style={{ lineHeight: "1.6", color: textColor, fontSize: "14px" }}>
-                <p><strong>Nombre:</strong> {name}</p>
-                <p><strong>Teléfono:</strong> {phone}</p>
-                <p><strong>Correo:</strong> {email}</p>
-                <p><strong>Dirección:</strong> {address}</p>
-              </div>
-            </td>
-          </tr>
+        {/* Número de pedido */}
+        <Section>
+          <Text style={informationTitle}>Número de Pedido</Text>
+          <Text style={informationText}>{orderId}</Text>
+        </Section>
 
-          {/* Dirección de Facturación */}
-          {billingAddress && (
-            <tr>
-              <td style={{ padding: "30px 20px" }}>
-                <h2 style={{ color: accentColor, fontSize: "18px", margin: "20px 0 15px 0", fontWeight: "normal" }}>
-                  Dirección de Facturación
-                </h2>
-                <div style={{ lineHeight: "1.6", color: textColor, fontSize: "14px" }}>
-                  <p><strong>Nombre:</strong> {billingAddress.name}</p>
-                  <p><strong>NIT o CF:</strong> {billingAddress.nitOrCf}</p>
-                  <p><strong>Dirección:</strong> {billingAddress.address}</p>
-                  <p><strong>Código Postal:</strong> {billingAddress.postalCode}</p>
-                  <p><strong>Teléfono:</strong> {billingAddress.phone}</p>
-                </div>
-              </td>
-            </tr>
-          )}
+        <Section>
+          <Text style={informationTitle}>Información del comprador</Text>
+          <Text style={informationText}>
+            <strong>Nombre:</strong> {name}
+          </Text>
+          <Text style={informationText}>
+            <strong>Teléfono:</strong> {phone}
+          </Text>
+          <Text style={informationText}>
+            <strong>Correo:</strong> {email}
+          </Text>
+          <Text style={informationText}>
+            <strong>Dirección:</strong> {address}
+          </Text>
+        </Section>
 
-          {/* Productos en el Carrito */}
-          <tr>
-            <td style={{ padding: "0px 20px 30px 20px" }}>
-              <h2 style={{ color: accentColor, fontSize: "18px", margin: "20px 0 15px 0", fontWeight: "normal" }}>
-                Productos en tu Carrito
-              </h2>
-              <table style={{ borderCollapse: "collapse", width: "100%" }}>
-                <thead>
-                  <tr>
-                    <th style={{ textAlign: "left", fontSize: "13px", paddingBottom: "8px", borderBottom: "1px solid #eee" }}>
-                      Producto
-                    </th>
-                    <th style={{ textAlign: "left", fontSize: "13px", paddingBottom: "8px", borderBottom: "1px solid #eee" }}>
-                      Cantidad
-                    </th>
-                    <th style={{ textAlign: "left", fontSize: "13px", paddingBottom: "8px", borderBottom: "1px solid #eee" }}>
-                      Subtotal
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {cartItems.map((item) => (
-                    <tr key={item.id}>
-                      <td style={{ padding: "10px 0", borderBottom: "1px solid #eee" }}>{item.name}</td>
-                      <td style={{ padding: "10px 0", borderBottom: "1px solid #eee" }}>{item.quantity}</td>
-                      <td style={{ padding: "10px 0", borderBottom: "1px solid #eee" }}>
-                        GTQ {(item.price * item.quantity).toFixed(2)}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+        {billingAddress && (
+          <Section>
+            <Text style={informationTitle}>Dirección de facturación</Text>
+            <Text style={informationText}>
+              <strong>Nombre:</strong> {billingAddress.name}
+            </Text>
+            <Text style={informationText}>
+              <strong>NIT o CF:</strong> {billingAddress.nitOrCf}
+            </Text>
+            <Text style={informationText}>
+              <strong>Dirección:</strong> {billingAddress.address}
+            </Text>
+            {billingAddress.postalCode && (
+              <Text style={informationText}>
+                <strong>Código Postal:</strong> {billingAddress.postalCode}
+              </Text>
+            )}
+            <Text style={informationText}>
+              <strong>Teléfono:</strong> {billingAddress.phone}
+            </Text>
+          </Section>
+        )}
 
-              <h2 style={{ color: accentColor, fontSize: "18px", margin: "20px 0 10px 0", fontWeight: "normal" }}>
-                Total a Pagar
-              </h2>
-              <p style={{ fontSize: "16px", fontWeight: "bold", margin: "0 0 30px 0", color: textColor }}>
-                GTQ {total.toFixed(2)}
-              </p>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  );
+        {/* Resumen de compra */}
+        <Section>
+          <Text style={informationTitle}>Resumen de compra</Text>
+          {cartItems.map((item) => (
+            <Row key={item.id} style={productRow}>
+              <Column>
+                <Img
+                  src={item.image}
+                  alt={item.name}
+                  width="64"
+                  height="64"
+                  style={productImage}
+                />
+              </Column>
+              <Column style={productDetails}>
+                <Text style={productTitle}>{item.name}</Text>
+                <Text style={productDescription}>
+                  Talla: {item.size} | Color: {item.color}
+                </Text>
+                <Text style={productDescription}>
+                  Cantidad: {item.quantity}
+                </Text>
+                <Text style={productPrice}>
+                  <strong>GTQ {item.price.toFixed(2)}</strong>
+                </Text>
+              </Column>
+            </Row>
+          ))}
+        </Section>
+
+        {/* Instrucciones para transferencia si aplica */}
+        {paymentMethod === "transferencia" && (
+          <Section style={instructionsContainer}>
+            <Text style={instructionsTitle}>
+              Instrucciones para realizar tu pago:
+            </Text>
+            <Text style={instructionsText}>
+              Realiza el depósito o transferencia correspondiente a la siguiente
+              cuenta de <strong>BANCO INDUSTRIAL</strong>:
+            </Text>
+            <Text style={instructionsText}>
+              <strong>Cuenta:</strong> 285-12-07556
+              <br />
+              <strong>Tipo:</strong> Cuenta de ahorro
+              <br />
+              <strong>Nombre:</strong> Oscar Daniel Xiquin Cumes
+            </Text>
+            <Text style={instructionsText}>
+              Envía el comprobante de pago junto con tu número de pedido a:
+            </Text>
+            <Text style={instructionsText}>
+              <strong>Correo electrónico:</strong> contacto@distincion.shop
+            </Text>
+            <Text style={instructionsText}>
+              <strong>WhatsApp:</strong> 31135906
+            </Text>
+            <Text style={instructionsText}>
+              Una vez confirmado tu pago, te notificaremos a través del medio
+              que utilizaste para enviar la información.
+            </Text>
+            <Text style={instructionsText}>
+              Tu pedido será empacado y enviado; el tiempo estimado de entrega
+              es de 2 días hábiles.
+            </Text>
+          </Section>
+        )}
+
+        <Hr style={divider} />
+        <Section align="right">
+          <Text style={totalText}>
+            <strong>Total:</strong> GTQ {total.toFixed(2)}
+          </Text>
+        </Section>
+
+        <Section align="center">
+          <Text style={informationTitle}>¡Gracias por tu compra!</Text>
+        </Section>
+      </Container>
+    </Body>
+  </Html>
+);
+
+const main = {
+  fontFamily: "Arial, sans-serif",
+  backgroundColor: "#f9f9f9",
+  padding: "20px 0",
 };
+
+const container = {
+  backgroundColor: "#ffffff",
+  borderRadius: "8px",
+  maxWidth: "600px",
+  margin: "0 auto",
+  padding: "20px",
+  boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+};
+
+const tableCell = { display: "table-cell" };
+
+const heading = {
+  fontSize: "24px",
+  fontWeight: "bold" as const,
+  color: "#444444",
+};
+
+const informationTitle = {
+  fontSize: "18px",
+  fontWeight: "bold" as const,
+  color: "#444444",
+  marginBottom: "10px",
+};
+
+const informationText = {
+  fontSize: "14px",
+  color: "#666666",
+  lineHeight: "1.6",
+};
+
+const productRow = {
+  display: "flex",
+  alignItems: "center",
+  borderBottom: "1px solid #eeeeee",
+  padding: "10px 0",
+};
+
+const productImage = {
+  borderRadius: "8px",
+};
+
+const productDetails = {
+  paddingLeft: "15px",
+};
+
+const productTitle = {
+  fontSize: "14px",
+  fontWeight: "bold" as const,
+  color: "#444444",
+};
+
+const productDescription = {
+  fontSize: "12px",
+  color: "#888888",
+};
+
+const divider = {
+  margin: "20px 0",
+  borderTop: "1px solid #eeeeee",
+};
+
+const totalText = {
+  fontSize: "18px",
+  fontWeight: "bold" as const,
+  color: "#444444",
+};
+
+const instructionsContainer = {
+  backgroundColor: "#f5f5f5",
+  borderRadius: "8px",
+  padding: "16px",
+  margin: "20px 0",
+  border: "1px solid #ddd",
+};
+
+const instructionsTitle = {
+  fontSize: "16px",
+  fontWeight: "bold" as const,
+  color: "#333",
+  marginBottom: "8px",
+};
+
+const instructionsText = {
+  fontSize: "14px",
+  color: "#555",
+  lineHeight: "1.6",
+};
+
+const productPrice = {
+  fontSize: "14px",
+  fontWeight: "bold" as const,
+  color: "#444",
+  marginTop: "8px",
+};
+
+export default PurchaseReceiptEmail;

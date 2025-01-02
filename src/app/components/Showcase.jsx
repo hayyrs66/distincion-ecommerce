@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const GalleryItem = ({ src, alt, title }) => (
-  <Link href={`/ropa?categoria=${title.toLowerCase()}`} legacyBehavior>
+  <Link href={`/ropa/${title.toLowerCase()}`} legacyBehavior>
     <div className="relative cursor-pointer w-full h-[390px] group">
       {/* Imagen con hover */}
       <Image
@@ -49,7 +49,7 @@ const Showcase = () => {
   ];
 
   return (
-    <section className="w-full px-6 mt-24">
+    <section className="w-full px-6 py-16">
       <span className="text-black/70 tracking-wider font-medium text-lg uppercase">Descubre</span>
       <h3 className="text-black text-4xl text-balance tracking-tight font-normal mb-8">
         Categorías

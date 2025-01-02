@@ -24,8 +24,14 @@
     ],
     "paths": {
       "@/*": [
-        "./src/*"
-      ]
+        "./src/*",
+      ],
+      "@components/*": [
+        "./src/app/components/*",
+      ],
+      "@shadcn/*": [
+        "./src/components/ui/*",
+      ],
     }, 
   },
   "include": [

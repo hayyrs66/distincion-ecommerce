@@ -48,7 +48,7 @@ module.exports = {
       },
       colors: {},
       fontSize:{
-        clamp_hero: "clamp(9rem, 36vw, 30rem)",
+        clamp_hero: "clamp(9rem, 30vw, 25rem)",
       }
     },
   },
