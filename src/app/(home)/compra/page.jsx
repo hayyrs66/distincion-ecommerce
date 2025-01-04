@@ -920,7 +920,6 @@ export default function CompraPage() {
                 Ordenar Pedido
               </button>
             </div>
-          </div>
 
           {/* Columna Derecha: Carrito y Resumen */}
           <div className="w-full bg-black rounded-md h-fit p-6 text-white">

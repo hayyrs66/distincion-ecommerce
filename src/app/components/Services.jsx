@@ -10,7 +10,7 @@ const Services = () => {
             Envío Gratis
           </h3>
           <p className="font-normal text-sm md:text-base tracking-tight text-center">
-            Envío gratis todo diciembre.
+            Envío gratis todo enero.
           </p>
         </div>
         <div className="flex flex-col py-6 lg:py-12 w-full h-full items-center gap-2 rounded-md">
