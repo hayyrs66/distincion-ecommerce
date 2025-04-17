@@ -49,6 +49,7 @@ export async function POST(request: Request) {
     }
 
     const authData = await authResponse.json();
+    console.log(authData);
     
     if (authData.result !== "success" || !authData.data || !authData.data.token) {
       throw new Error('Authentication failed: No token received');
