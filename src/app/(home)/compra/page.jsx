@@ -52,6 +52,8 @@ export default function CompraPage() {
     facturacionCodigoPostal: "",
     facturacionTelefono: "",
     metodoPago: "transferencia",
+    ebipayToken: "",
+    paymentReference: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -93,17 +95,8 @@ export default function CompraPage() {
     }
 
     if (formData.metodoPago === "tarjeta") {
-      if (!formData.numeroTarjeta.trim()) {
-        newErrors.numeroTarjeta = "Número de tarjeta inválido.";
-      }
-      if (!formData.fechaVencimiento.trim()) {
-        newErrors.fechaVencimiento = "Fecha de vencimiento requerida.";
-      }
-      if (!formData.codigoSeguridad.trim()) {
-        newErrors.codigoSeguridad = "Código de seguridad requerido.";
-      }
-      if (!formData.nombreTitular.trim()) {
-        newErrors.nombreTitular = "Nombre del titular requerido.";
+      if (!formData.email || formData.email.length < 5) {
+        newErrors.email = "El correo es necesario para el recibo electrónico.";
       }
     }
 
@@ -143,33 +136,81 @@ export default function CompraPage() {
   };
 
   const handleSubmit = async () => {
+    const paymentToken = crypto.randomUUID(); 
     if (!validateForm()) {
       return;
     }
-
-    setIsSubmitting(true);
-
-    try {
-      const response = await fetch("/api/send", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ formData, cartItems, total }),
+  
+    if (formData.metodoPago === "tarjeta" && cartItems.length === 0) {
+      toast({
+        title: "Carrito vacío",
+        description: "Agrega productos al carrito antes de pagar",
+        variant: "destructive"
       });
+      return;
+    }
+  
+    setIsSubmitting(true);
+  
+    try {
+      if (formData.metodoPago === "tarjeta") {
+        const orderResponse = await fetch("/api/payment", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            amount: total,
+            customerEmail: formData.email,
+            cartItems
+          })
+        });
+        
+        const orderData = await orderResponse.json();
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.log(errorData);
-        throw new Error(errorData.error || "Error al enviar la solicitud");
+        if (!orderResponse.ok) {
+          throw new Error(orderData.error || "Error creating payment order");
+        }
+  
+        if (!orderData.paymentUrl) {
+          throw new Error("No payment URL received");
+        }
+
+        sessionStorage.setItem('pendingOrder', JSON.stringify({
+          token: paymentToken,
+          orderRef: orderData.orderRef,
+          infoEmail: formData,
+          cartItems,
+          total,
+          timestamp: Date.now()
+        }));
+        
+        window.location.href = orderData.paymentUrl;
+      } else {
+        
+        const response = await fetch("/api/send", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ formData, cartItems, total }),
+        });
+        
+        const responseData = await response.json();
+        
+        if (!response.ok) {
+          throw new Error(responseData.error || "Error processing transfer");
+        }
+        
+        setOpenAlert(true);
       }
-
-      await response.json();
-      setOpenAlert(true);
     } catch (error) {
+      console.error("Payment error:", error);
+      toast({
+        title: "Error en el pago",
+        description: error.message || "Error procesando el pago",
+        variant: "destructive"
+      });
     } finally {
       setIsSubmitting(false);
     }
   };
-
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
@@ -531,120 +572,14 @@ export default function CompraPage() {
 
               {/* Campos adicionales si elige Tarjeta */}
               {formData.metodoPago === "tarjeta" && (
-                <div className="mb-8 bg-gray-50 p-4 rounded-md border border-gray-200">
-                  <h5 className="text-lg font-semibold mb-4 text-gray-900">
-                    Detalles de la Tarjeta
-                  </h5>
-                  <div className="flex flex-col gap-6">
-                    <div>
-                      <label
-                        htmlFor="numeroTarjeta"
-                        className="block text-sm font-medium text-gray-700 mb-1"
-                      >
-                        Número de tarjeta
-                      </label>
-                      <input
-                        type="text"
-                        id="numeroTarjeta"
-                        name="numeroTarjeta"
-                        placeholder="1234 5678 9012 3456"
-                        value={formData.numeroTarjeta}
-                        onChange={handleInputChange}
-                        className={`w-full border border-gray-400/50 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 ${
-                          errors.numeroTarjeta
-                            ? "border-red-500 focus:ring-red-500"
-                            : ""
-                        }`}
-                      />
-                      {errors.numeroTarjeta && (
-                        <p className="text-red-500 text-sm mt-1">
-                          {errors.numeroTarjeta}
-                        </p>
-                      )}
-                    </div>
-
-                    <div>
-                      <label
-                        htmlFor="fechaVencimiento"
-                        className="block text-sm font-medium text-gray-700 mb-1"
-                      >
-                        Fecha de vencimiento (MM/YY)
-                      </label>
-                      <input
-                        type="text"
-                        id="fechaVencimiento"
-                        name="fechaVencimiento"
-                        placeholder="01/27"
-                        value={formData.fechaVencimiento}
-                        onChange={handleInputChange}
-                        className={`w-full border border-gray-400/50 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 ${
-                          errors.fechaVencimiento
-                            ? "border-red-500 focus:ring-red-500"
-                            : ""
-                        }`}
-                      />
-                      {errors.fechaVencimiento && (
-                        <p className="text-red-500 text-sm mt-1">
-                          {errors.fechaVencimiento}
-                        </p>
-                      )}
-                    </div>
-
-                    <div>
-                      <label
-                        htmlFor="codigoSeguridad"
-                        className="block text-sm font-medium text-gray-700 mb-1"
-                      >
-                        Código de seguridad (CVV)
-                      </label>
-                      <input
-                        type="text"
-                        id="codigoSeguridad"
-                        name="codigoSeguridad"
-                        placeholder="123"
-                        value={formData.codigoSeguridad}
-                        onChange={handleInputChange}
-                        className={`w-full border border-gray-400/50 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 ${
-                          errors.codigoSeguridad
-                            ? "border-red-500 focus:ring-red-500"
-                            : ""
-                        }`}
-                      />
-                      {errors.codigoSeguridad && (
-                        <p className="text-red-500 text-sm mt-1">
-                          {errors.codigoSeguridad}
-                        </p>
-                      )}
-                    </div>
-
-                    <div>
-                      <label
-                        htmlFor="nombreTitular"
-                        className="block text-sm font-medium text-gray-700 mb-1"
-                      >
-                        Nombre del titular
-                      </label>
-                      <input
-                        type="text"
-                        id="nombreTitular"
-                        name="nombreTitular"
-                        placeholder="Nombre tal como aparece en la tarjeta"
-                        value={formData.nombreTitular}
-                        onChange={handleInputChange}
-                        className={`w-full border border-gray-400/50 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 ${
-                          errors.nombreTitular
-                            ? "border-red-500 focus:ring-red-500"
-                            : ""
-                        }`}
-                      />
-                      {errors.nombreTitular && (
-                        <p className="text-red-500 text-sm mt-1">
-                          {errors.nombreTitular}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </div>
+                 <div className="mb-8 bg-gray-50 p-4 rounded-md border border-gray-200">
+                 <p className="text-sm text-gray-700">
+                   Serás redirigido a Ebipay para completar tu pago de forma segura.
+                   <br />
+                   <span className="font-semibold">Importante:</span> Al completar el pago, 
+                   serás regresado automáticamente a esta página para finalizar tu compra.
+                 </p>
+               </div>
               )}
 
               {/* Si el NIT es CF, no mostrar el checkbox ni el formulario de facturación */}
@@ -917,7 +852,9 @@ export default function CompraPage() {
                     : "bg-black hover:bg-black/80 focus:ring-2 focus:ring-black/80"
                 }`}
               >
-                Ordenar Pedido
+                {formData.metodoPago === "tarjeta" 
+                  ? "Pagar con Ebipay" 
+                  : "Ordenar Pedido"}
               </button>
             </div>
 
@@ -985,6 +922,7 @@ export default function CompraPage() {
             </div>
           </div>
         </div>
+      </div>
       </div>
 
       {/* AlertDialog para mostrar al finalizar */}

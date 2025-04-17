@@ -66,7 +66,9 @@ export default function ProductClient({ product, defaultColor }) {
   const availableSizes =
     product.tipo === "semirecto"
       ? ["28", "30", "32", "34"]
-      : ["28", "30", "32", "34", "36"];
+      : product.tipo === "nino"
+      ? ["02", "04", "06", "08", "10", "12", "14", "16"] 
+      :["28", "30", "32", "34", "36"];
 
   return (
     <section className="w-full h-full min-h-screen grid grid-cols-1 lg:grid-cols-[60%_40%]">
