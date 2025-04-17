@@ -51,7 +51,7 @@ export default function CancelPage() {
   };
 
   return (
-    <section className="w-full min-h-screen pt-24 pb-24 bg-neutral-900">
+    <section className="w-full min-h-screen pt-24 pb-24 bg-gray-50">
       <div className="max-w-7xl px-4 lg:px-6 mx-auto">
         <div className="max-w-2xl mx-auto text-center">
           <div className="relative inline-block mb-8">
@@ -91,7 +91,7 @@ export default function CancelPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1 }}
             >
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+              <h1 className="text-4xl md:text-5xl font-bold text-neutral-900 mb-4">
                 Pago Cancelado
               </h1>
 
@@ -128,7 +128,7 @@ export default function CancelPage() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={handleContinue}
-                  className="border border-neutral-700 hover:border-neutral-600 text-neutral-300 hover:text-white px-8 py-4 rounded-lg font-medium transition-colors duration-300"
+                  className="border border-neutral-700 hover:border-neutral-600 text-neutral-400 hover:text-neutral-500 px-8 py-4 rounded-lg font-medium transition-colors duration-300"
                 >
                   Continuar en la tienda
                 </motion.button>
